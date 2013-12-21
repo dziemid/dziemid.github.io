@@ -4,7 +4,7 @@
   <title><![CDATA[Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2013-12-21T19:42:43+11:00</updated>
+  <updated>2013-12-21T23:36:46+11:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -12,6 +12,133 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[MelbTram - My First App for Smart Watch]]></title>
+    <link href="http://gregdmd.com/blog/2013/12/21/melbtram-my-first-app-for-smart-watch/"/>
+    <updated>2013-12-21T22:21:44+11:00</updated>
+    <id>http://gregdmd.com/blog/2013/12/21/melbtram-my-first-app-for-smart-watch</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve recently bought
+<a href="http://www.amazon.com/gp/product/B00FB2XNCE/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00FB2XNCE&amp;linkCode=as2&amp;tag=gregdziesblog-20">Sony Smart Watch 2</a>
+with the intention of developing apps for it (<a href="https://play.google.com/store/apps/details?id=pl.agilesurfing.melbtram">check out MelbTram</a>).</p>
+
+<p>I am quite happy with this purchase, it&rsquo;s really convenient to be able to see who is calling or read a message at simple glance.
+I have chosen Sony Smart Watch, mainly because it runs Android and supports my <a href="http://www.amazon.com/gp/product/B00ABPKHH0/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=B00ABPKHH0&amp;linkCode=as2&amp;tag=gregdziesblog-20">Nexus phone</a>.</p>
+
+<p>I have created my first app in two sessions on consecutive weekends (two Sundays). The first session was about being able to deploy
+simple &ldquo;Hello World&rdquo; app to the watch.</p>
+
+<p>As I never developed before for Android, the first challenge was how to put my phone into debug mode. It&rsquo;s quite easy:</p>
+
+<blockquote><p>At the “About” screen, scroll to the bottom and tap on “Build number” seven times.</p><footer><strong>mr.boyfox</strong> <cite><a href='http://stackoverflow.com/questions/16707137/how-to-find-and-turn-on-usb-debugging-mode-on-nexus-4'>stackoverflow.com/questions/&hellip;</a></cite></footer></blockquote>
+
+
+<p>If your device is in debug mode, you should be able to run, and see:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$> ./platform-tools/adb devices
+</span><span class='line'>List of devices attached
+</span><span class='line'>XXXXXXXXXXXXXXXX  device</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then, I was following instructions from <a href="http://developer.sonymobile.com/knowledge-base/tutorials/android_tutorial/how-to-create-an-app-extension-for-sony-smartwatch-2/">Sony Developer website</a>
+and I was able successfully deploy my &ldquo;Hello World&rdquo;. Yay!</p>
+
+<p>The second sessions was about actually developing the app. The app is truly <a href="http://www.amazon.com/gp/product/0307887898/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0307887898&amp;linkCode=as2&amp;tag=gregdziesblog-20">a minimum viable product</a>, created and deployed to Play store within one day ;)
+The problem I&rsquo;ve decided to tackle was &ldquo;when is the best time to leave home/office in order to catch a tram?&rdquo;.</p>
+
+<p>I&rsquo;ve based my solution on &ldquo;SampleControlExtension&rdquo; provided with the SDK.
+Using it as starting point, step by step I&rsquo;ve transformed it into the final form.
+The app is very simple. It consists of &ldquo;Preferences&rdquo; screen on the phone, where you setup your tram stops and routes,
+and simple screen on the watch displaying next 2 tram arrival times.</p>
+
+<p>The app let&rsquo;s you configure 4 different routes. When you open the app on the watch, 4 background tasks like this
+will be started:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='java'><span class='line'><span class="kn">import</span> <span class="nn">com.sonyericsson.extras.liveware.extension.util.control.ControlExtension</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kn">import</span> <span class="nn">android.os.AsyncTask</span><span class="o">;</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">android.util.Log</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RetriveTramInfoTask</span>  <span class="kd">extends</span> <span class="n">AsyncTask</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Void</span><span class="o">,</span> <span class="n">TramArrivals</span><span class="o">&gt;</span> <span class="o">{</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">Exception</span> <span class="n">exception</span><span class="o">;</span>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">SampleControlSmartWatch2</span> <span class="n">myListener</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">private</span> <span class="n">TramInfoRequest</span> <span class="n">request</span><span class="o">;</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">viewLabelId</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">public</span> <span class="nf">RetriveTramInfoTask</span><span class="o">(</span><span class="n">SampleControlSmartWatch2</span> <span class="n">myListener</span><span class="o">,</span> <span class="kt">int</span> <span class="n">viewLabelId</span><span class="o">,</span> <span class="n">TramInfoRequest</span> <span class="n">request</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>      <span class="k">this</span><span class="o">.</span><span class="na">myListener</span> <span class="o">=</span> <span class="n">myListener</span><span class="o">;</span>
+</span><span class='line'>      <span class="k">this</span><span class="o">.</span><span class="na">viewLabelId</span> <span class="o">=</span> <span class="n">viewLabelId</span><span class="o">;</span>
+</span><span class='line'>      <span class="k">this</span><span class="o">.</span><span class="na">request</span> <span class="o">=</span> <span class="n">request</span><span class="o">;</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">protected</span> <span class="n">TramArrivals</span> <span class="nf">doInBackground</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">urls</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="k">try</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">TramTrackerAPI</span> <span class="n">api</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TramTrackerAPI</span><span class="o">();</span>
+</span><span class='line'>          <span class="k">return</span> <span class="n">api</span><span class="o">.</span><span class="na">nextTram</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>          <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+</span><span class='line'>            <span class="k">this</span><span class="o">.</span><span class="na">exception</span> <span class="o">=</span> <span class="n">e</span><span class="o">;</span>
+</span><span class='line'>            <span class="k">return</span> <span class="k">new</span> <span class="nf">TramArrivals</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
+</span><span class='line'>        <span class="o">}</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">onPostExecute</span><span class="o">(</span><span class="n">TramArrivals</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+</span><span class='line'>        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&quot;%d in %s minutes, then %s&quot;</span><span class="o">,</span> <span class="n">request</span><span class="o">.</span><span class="na">routeId</span><span class="o">,</span> <span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">),</span> <span class="n">result</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+</span><span class='line'>      <span class="n">myListener</span><span class="o">.</span><span class="na">setWatchEvent</span><span class="o">(</span><span class="n">viewLabelId</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+</span><span class='line'>    <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The end result looks more or less like this:</p>
+
+<p><img src="https://lh6.ggpht.com/mQNZMEdtsCHhPVWCl5QmDSe6k5sE-a3U5e-dV64IASoWYSLcnV3wMxW603qYm8iXUQ=h310-rw"></p>
+
+<p><a href="https://play.google.com/store/apps/details?id=pl.agilesurfing.melbtram">The MelbTram app</a> is available for free in Google play store, check it out!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Global Day of CodeRetreat 2013]]></title>
