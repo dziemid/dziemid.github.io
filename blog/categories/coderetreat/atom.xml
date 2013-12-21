@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Coderetreat | Greg Dziemidowicz's Blog]]></title>
+  <link href="http://gregdmd.com/blog/categories/coderetreat/atom.xml" rel="self"/>
+  <link href="http://gregdmd.com/"/>
+  <updated>2013-12-21T15:07:04+11:00</updated>
+  <id>http://gregdmd.com/</id>
+  <author>
+    <name><![CDATA[Greg Dziemidowicz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Global Day of CodeRetreat 2013]]></title>
+    <link href="http://gregdmd.com/blog/2013/12/21/global-day-of-coderetreat-2013/"/>
+    <updated>2013-12-21T13:50:17+11:00</updated>
+    <id>http://gregdmd.com/blog/2013/12/21/global-day-of-coderetreat-2013</id>
+    <content type="html"><![CDATA[<p>On 14th of December I&rsquo;ve attended a CodeRetreat in Melbourne.
+It was a <a href="http://globalday.coderetreat.org">Global Day of CodeReterat</a> &ndash; the 3rd one I was a part of.
+This year I&rsquo;ve done something new, rather then facilitating I focused on enabling others to do so.
+I have run 3 google hangouts trainings<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> for first time facilitators
+(
+<a href="https://plus.google.com/events/cpssmqq8u4f8u5qkkk768b629i0">#1</a>
+<a href="https://plus.google.com/events/c4olgo868inn0n0aumkeqefe20g">#2</a> ) and <a href="https://plus.google.com/events/cgt5ts5a7nkk9lis8sdu00q0270">hosts</a>.
+I&rsquo;ve also worked closely with the great team organizing CodeRetreat in Melbourne.
+It was the first Global CodeRetreat I&rsquo;ve attended, rather the facilitated :)</p>
+
+<p>In Melbourne, as always the day was full of fun and learning :) We had a good mixed group
+of around 25 developers. People were programming in Ruby, JavaScript, Java, PHP and probably some other languages as well.</p>
+
+<p>CodeRetreat was hosted by REA with food sponsored by ThoughtWorks. REA was hosting us for the second time in the last 2 months &ndash;
+not so long ago we had a <a href="http://techblog.realestate.com.au/tdd-in-bash-aka-our-1st-internal-code-retreat-rea/">internal CodeRetreat</a> run there.</p>
+
+<p>As far as our CodeRetreat goes, we followed fairly <a href="http://coderetreat.org/facilitating/structure-of-a-coderetreat">standard format</a>.
+We started the first session around 10AM and we had 5 sessions in total. One of the interesting experiments we tried was &ldquo;multi facilitation&rdquo;.
+Our main facilitator was <a href="https://twitter.com/iparips">Ilya Paripsa</a>, however he had 4 other people helping him. So the first session was facilitated by
+Ilya and Luke, second session by Luke and Qing and so on. The setup worked reasonably well, with the main benefit of giving more people opportunity to have a go
+at facilitating. I wouldn&rsquo;t recommend it as a default arrangement<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>, but it might be something to consider when you have many volunteers.</p>
+
+<p>Our main theme of CodeRetreat was Test-Driven development. What exercises have we tried?</p>
+
+<ol>
+<li>Warm up.
+
+<ul>
+<li>I was pairing in JavaScript.</li>
+</ul>
+</li>
+<li>Ping pong pair programming.
+
+<ul>
+<li>Paring again in JavaScript.</li>
+</ul>
+</li>
+<li>Short methods. No conditions.
+
+<ul>
+<li>I was pairing in Ruby, using OO polymorphism to get rid of conditions.</li>
+</ul>
+</li>
+<li><a href="http://coderetreat.org/profiles/blogs/taking-baby-steps">Taking baby steps</a>
+
+<ul>
+<li>I was pairing in Java.</li>
+</ul>
+</li>
+<li>Do whatever you like.
+
+<ul>
+<li>I was pairing in Ruby, using functional style and a lot of <a href="http://pryrepl.org/">pry</a></li>
+<li>Afterwards, for fun, I&rsquo;ve tried to fit our solution into <a href="https://twitter.com/dziemid/status/411784405460324352">the tweet</a>. (Took me 2 tweets).
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">P</span><span class="o">=</span><span class="no">Struct</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">:x</span><span class="p">,</span><span class="ss">:y</span><span class="p">){</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">v</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="n">P</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span><span class="k">end</span><span class="p">;</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">n</span>
+</span><span class='line'>   <span class="o">[</span><span class="n">v</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">v</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">v</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="n">v</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">y</span><span class="p">),</span> <span class="n">v</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">y</span><span class="p">),</span><span class="n">v</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">v</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">),</span><span class="n">v</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span><span class="p">}</span>
+</span><span class='line'><span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</span><span class='line'>   <span class="n">a</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="ss">:n</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="o">.</span><span class="n">uniq</span><span class="o">.</span><span class="n">select</span><span class="p">{</span><span class="o">|</span><span class="nb">p</span><span class="o">|</span><span class="n">b</span><span class="o">=</span><span class="p">(</span><span class="nb">p</span><span class="o">.</span><span class="n">n</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">size</span><span class="p">;</span><span class="n">a</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="nb">p</span><span class="p">)</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="o">&amp;</span><span class="n">amp</span><span class="p">;</span><span class="n">b</span><span class="o">==</span><span class="mi">2</span><span class="o">||</span><span class="n">b</span><span class="o">==</span><span class="mi">3</span><span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'><span class="nb">puts</span> <span class="n">g</span><span class="p">(</span><span class="o">[</span><span class="n">P</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+</ul>
+</li>
+</ol>
+
+
+<p>I am looking forward to the next CodeRetreat, hopefully within next few months :)</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>Thank you <a href="https://twitter.com/martinklose">Martin</a> and <a href="https://twitter.com/jthurne">Jim</a> for involving me in this.<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p>Recommended way is to pair facilitate.<a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+]]></content>
+  </entry>
+  
+</feed>
