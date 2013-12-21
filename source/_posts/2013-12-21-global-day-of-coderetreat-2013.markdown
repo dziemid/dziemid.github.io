@@ -25,7 +25,7 @@ not so long ago we had run an [internal CodeRetreat](http://techblog.realestate.
 
 {% pullquote %}
 As far as our CodeRetreat goes, we followed a fairly [standard format](http://coderetreat.org/facilitating/structure-of-a-coderetreat).
-We started the first session at around 10AM and we had 5 sessions in total.  {"One of the interesting experiments we tried was "multi facilitation"."}
+We started the first session at around 10AM and we had 5 sessions in total. {""Multi-facilitation" was interesting experiment we tried."}
 Our main facilitator was [Ilya Paripsa](https://twitter.com/iparips), however he had 4 other people helping him. So the first session was facilitated by
 Ilya and Luke, second session by Luke and Qing and so on. The setup worked reasonably well, with the main benefit of giving more people an opportunity to have a go
 at facilitating. I wouldn't recommend it as a default arrangement[^default_arrangement], but it might be something to consider when you have many volunteers.
