@@ -23,11 +23,13 @@ of around 25 developers. People were programming in Ruby, JavaScript, Java, PHP 
 CodeRetreat was hosted by REA with food sponsored by ThoughtWorks. REA was hosting us for the second time in the last 2 months -
 not so long ago we had run an [internal CodeRetreat](http://techblog.realestate.com.au/tdd-in-bash-aka-our-1st-internal-code-retreat-rea/) there.
 
+{% pullquote %}
 As far as our CodeRetreat goes, we followed a fairly [standard format](http://coderetreat.org/facilitating/structure-of-a-coderetreat).
-We started the first session at around 10AM and we had 5 sessions in total. One of the interesting experiments we tried was "multi facilitation".
+We started the first session at around 10AM and we had 5 sessions in total.  {"One of the interesting experiments we tried was "multi facilitation"."}
 Our main facilitator was [Ilya Paripsa](https://twitter.com/iparips), however he had 4 other people helping him. So the first session was facilitated by
 Ilya and Luke, second session by Luke and Qing and so on. The setup worked reasonably well, with the main benefit of giving more people an opportunity to have a go
 at facilitating. I wouldn't recommend it as a default arrangement[^default_arrangement], but it might be something to consider when you have many volunteers.
+{% endpullquote %}
 
 Our main theme of this CodeRetreat was Test-Driven development. What exercises have we tried?
 
