@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://dziemid.github.io/sitemap.xml 
+Sitemap: http://gregdmd.com/sitemap.xml 
