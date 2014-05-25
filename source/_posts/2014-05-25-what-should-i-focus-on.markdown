@@ -34,7 +34,7 @@ Recently, I have been introduced by [Andy](https://twitter.com/gigantiqandy) to 
 
 ## What should I work on this week?
 
-To visualise what I am working on at the moment (and where my attention should be) I've started using recently [virtual board](trello.com) provided by Trello.
+To visualise what I am working on at the moment (and where my attention should be) I've started using recently [virtual board](http://trello.com) provided by Trello.
 
 At the moment my personal kanban board has following columns: "Thinking about", "To do", "Doing", "Waiting / Tracking" and "Done".
 
