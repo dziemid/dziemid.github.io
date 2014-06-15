@@ -4,7 +4,7 @@
   <title><![CDATA[Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-05-25T17:38:57+10:00</updated>
+  <updated>2014-06-15T19:36:44+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -12,6 +12,83 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Analysing AWS CloudTrail Logs With ElasticSearch and Kibana]]></title>
+    <link href="http://gregdmd.com/blog/2014/06/15/analysing-aws-cloudtrail-logs-with-elasticsearch-and-kibana/"/>
+    <updated>2014-06-15T18:33:12+10:00</updated>
+    <id>http://gregdmd.com/blog/2014/06/15/analysing-aws-cloudtrail-logs-with-elasticsearch-and-kibana</id>
+    <content type="html"><![CDATA[<p>Summary of my recent spike with ElasticSearch, Kibana and Docker.</p>
+
+<h2>Quick and dirty forensics</h2>
+
+<p>Recently we had an situation were <a href="http://aws.amazon.com/cloudtrail/">CloudTrail</a> was invaluable tool in finding out what happened. The only issue was usability of the logs.</p>
+
+<p>We are new to the tool, so at the time we had a logging enabled, but not much more. When the incident happened we pretty much just run <code>s3sync sync</code> and than worked with logs &ldquo;by hand&rdquo; in a manner similar to this:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cat * | jq . -C | grep -i eventname -A 10 -B 10 \
+</span><span class='line'>| grep -iv "describe" | grep -iv "list" | grep -iv "get" | less -R</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It worked, but left me with a feeling that there must be a better way.</p>
+
+<h2>The better way</h2>
+
+<p><span class='pullquote-right' data-pullquote='How hard would it be to get something useful out of ElasticSearch and Kibana?'>
+Talking with colleague on the tram an idea emerged in my head. How hard would it be to get something useful out of ElasticSearch and Kibana? I never used either, but I&rsquo;ve been told I should be pretty easy.</p>
+
+<p>I am here to report, it was easy and fun.. taking less than 2h to get to interesting results.
+</span></p>
+
+<p>In the end, I had a great interactive tool that enabled me to interact with logs in a fun an engaging way. I could easily ask questions like:</p>
+
+<ul>
+<li>What was happening between 11:40 and 11:45</li>
+<li>Which user makes the most requests?</li>
+<li>What are some of the unusual requests?</li>
+</ul>
+
+
+<p>So how have I done it?</p>
+
+<p>To maximize fun and learning factor, I&rsquo;ve decided to do everything in <a href="https://www.docker.io">Docker</a>.</p>
+
+<ol>
+<li><p><em>Getting docker</em> &ndash; I am using <a href="https://github.com/boot2docker/osx-installer">boot2docker</a> and my first step was updating it..</p></li>
+<li><p><em>Choosing container</em> &ndash; I&rsquo;ve started with <a href="https://registry.hub.docker.com/_/centos/">centos</a>. Unfortunately I had issues with getting ElasticSearch to work (missing commands) and in the end I&rsquo;ve decided to try ubuntu. This proved much easier, so ubuntu was my base image.</p></li>
+<li><p><em>Base ElasticSearch image</em> &ndash; preparing it was quite easy. The main thing I&rsquo;ve learnt was to use <code>--rm</code> flag to enable container internet connectivity (this was needed in order to access package repositories). I&rsquo;ve installed java, apache, ElasticSearch and Kibana. Once I was done, I&rsquo;ve made sure to run <code>docker commit 8cc7b46cXXXX elasticsearch</code>.</p></li>
+<li><p><em>Running container with ports exposed</em> &ndash; <code>docker run --rm -i -t -p 80:80 -p 9200:9200 elasticsearch /bin/bash</code></p></li>
+<li><p><em>Uploading CloudTrail logs</em> &ndash; I&rsquo;ve found <a href="https://github.com/mostlygeek/cloudtrail-elasticsearch-import">cloudtrail-elasticsearch-import project</a> on github, which made it quite easy and matter of running <code>node import.sh.js  --elasticsearch http://IP:9200  --bucket BUCKET_NAME -r REGION -p PATH/2014/06/</code></p></li>
+<li><p><em>Profit</em> &ndash; At this stage I had my Kibana dashboard ready for me to start playing with.</p></li>
+</ol>
+
+
+<h2>Benefits of Docker</h2>
+
+<p>A few days later, I&rsquo;ve decided to play with ElasticSearch a little bit more.</p>
+
+<p>Nice side effect of using Docker &ndash; I still had my ElasticSearch image without any data on it.  I&rsquo;ve decided to do something different this time &ndash; visualise my bank transactions.</p>
+
+<p>Long story short, it worked &ndash; the main challenge was how to upload exported CSV into ElasticSearch.</p>
+
+<p>Apparently, the way to copy file from my laptop into running container involves netcat:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ docker run --rm -i -t -p 80:80 -p 9200:9200 -p 10101:10101 elasticsearch /bin/bash
+</span><span class='line'>container: $ nc -l 10101 &gt; transactions.csv
+</span><span class='line'>$ cat transactions.csv | nc IP 10101
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Once the file was there, I used <a href="https://github.com/AgileWorksOrg/elasticsearch-river-csv">elasticsearch-river-csv</a> plugin to load it. Just make sure <code>elasticsearch</code> user has access to that file and can create files in the directory. (As always, looking at /var/log/* helped in understanding what was going on.)</p>
+
+<p>Happy hacking!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[What Should I Focus On?]]></title>

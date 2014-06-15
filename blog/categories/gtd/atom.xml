@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Gtd | Greg Dziemidowicz's Blog]]></title>
+  <link href="http://gregdmd.com/blog/categories/gtd/atom.xml" rel="self"/>
+  <link href="http://gregdmd.com/"/>
+  <updated>2014-06-15T19:36:44+10:00</updated>
+  <id>http://gregdmd.com/</id>
+  <author>
+    <name><![CDATA[Greg Dziemidowicz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[What Should I Focus On?]]></title>
+    <link href="http://gregdmd.com/blog/2014/05/25/what-should-i-focus-on/"/>
+    <updated>2014-05-25T16:46:28+10:00</updated>
+    <id>http://gregdmd.com/blog/2014/05/25/what-should-i-focus-on</id>
+    <content type="html"><![CDATA[<p>I am working again on my goals. I want to be focused and work on the most important things.</p>
+
+<p>In this short post I will share some of the things I have been doing to get myself on the right track again.</p>
+
+<h2>What should I work on?</h2>
+
+<p>This is maybe the most difficult question, but once you get it figured out everything else becomes easier.</p>
+
+<p>In the past I used following system with good results:</p>
+
+<ul>
+<li>What do I want to be true when I am 40?</li>
+<li>Great, what needs to happen than before I am 30?</li>
+<li>And what should I do this year?</li>
+</ul>
+
+
+<p>Recently, I have been introduced by <a href="https://twitter.com/gigantiqandy">Andy</a> to intermediate objective maps. They complement the system I&rsquo;ve been using, by visualising it nicely. I&rsquo;ve created small little tool for myself to make <a href="http://gregdmd.com/iom">creation of intermediate objective maps</a>
+ easier.</p>
+
+<p><img class="<a" src="href="http://s3.postimg.org/jbjh5nx03/Screen_Shot_2014_05_25_at_5_24_13_pm.png">http://s3.postimg.org/jbjh5nx03/Screen_Shot_2014_05_25_at_5_24_13_pm.png</a>"></p>
+
+<p> Check it out and let me know what you think.</p>
+
+<p> The best tip Andy gave me was to share my map with my peers and get feedback. I am going to implement this advice soon :)</p>
+
+<p> As a bonus, few weeks back I was wondering how much time actually I have before I am 30, hence this little tool, <a href="http://gregdmd.com/dob">the age calculator</a>.</p>
+
+<h2>What should I work on this week?</h2>
+
+<p>To visualise what I am working on at the moment (and where my attention should be) I&rsquo;ve started using recently <a href="http://trello.com">virtual board</a> provided by Trello.</p>
+
+<p>At the moment my personal kanban board has following columns: &ldquo;Thinking about&rdquo;, &ldquo;To do&rdquo;, &ldquo;Doing&rdquo;, &ldquo;Waiting / Tracking&rdquo; and &ldquo;Done&rdquo;.</p>
+
+<p><img class="<a" src="href="http://s30.postimg.org/qygzfyhtt/Screen_Shot_2014_05_25_at_5_27_28_pm.png">http://s30.postimg.org/qygzfyhtt/Screen_Shot_2014_05_25_at_5_27_28_pm.png</a>"></p>
+
+<p>I am experimenting with the on-line tool for this, as it gives me a lot of flexibility. Trello has a good mobile client and nice web UI.</p>
+
+<h2>What should I work on next week?</h2>
+
+<p>During a normal week I have heaps of interesting thoughts. They are inspired by conversation I have, tweets &amp; blogs I skim over, etc. It&rsquo;s quite easy to move on and forget about them.</p>
+
+<p>To avoid this, I am capturing all those little thoughts and ideas in my &ldquo;Inbox&rdquo; <a href="https://evernote.com/">Evernote</a> notebook. Every Saturday I go through my &ldquo;Inbox&rdquo; and I triage the notes. This gives me a chance to action some of them, or at least plan what to do next.</p>
+
+<p>Evernote again is great for this, as it has easy to use mobile client that doesn&rsquo;t get in the way. For triage, Evernote desktop client is efficient and enjoyable to work with.</p>
+
+<h2>Conclusion</h2>
+
+<p>Hope you are inspired to try some of these ideas out. What tools and techniques are you using to stay focused?</p>
+]]></content>
+  </entry>
+  
+</feed>

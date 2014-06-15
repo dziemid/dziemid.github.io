@@ -14,15 +14,21 @@
     </url>
     <url>
         <loc>http://gregdmd.com/blog/2014/05/25/what-should-i-focus-on/</loc>
-        <lastmod>2014-05-25T17:38:56+10:00</lastmod>
+        <lastmod>2014-06-15T18:34:32+10:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://gregdmd.com/blog/2014/06/15/analysing-aws-cloudtrail-logs-with-elasticsearch-and-kibana/
+        </loc>
+        <lastmod>2014-06-15T19:36:44+10:00</lastmod>
     </url>
     <url>
         <loc>http://gregdmd.com/blog/archives/</loc>
-        <lastmod>2014-05-25T17:38:56+10:00</lastmod>
+        <lastmod>2014-06-15T19:36:44+10:00</lastmod>
     </url>
     <url>
         <loc>http://gregdmd.com/</loc>
-        <lastmod>2014-05-25T17:38:56+10:00</lastmod>
+        <lastmod>2014-06-15T19:36:44+10:00</lastmod>
     </url>
     <url>
         <loc>http://gregdmd.com/robots.txt</loc>
