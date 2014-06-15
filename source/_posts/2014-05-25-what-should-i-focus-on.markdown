@@ -3,7 +3,7 @@ layout: post
 title: "What should I focus on?"
 date: 2014-05-25 16:46:28 +1000
 comments: true
-categories: 
+categories: gtd
 ---
 
 I am working again on my goals. I want to be focused and work on the most important things.
