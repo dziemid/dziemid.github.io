@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Neo4j | Greg Dziemidowicz's Blog]]></title>
+  <link href="http://gregdmd.com/blog/categories/neo4j/atom.xml" rel="self"/>
+  <link href="http://gregdmd.com/"/>
+  <updated>2014-06-22T18:31:51+10:00</updated>
+  <id>http://gregdmd.com/</id>
+  <author>
+    <name><![CDATA[Greg Dziemidowicz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Extracting Your LinkedIn Connections Into Neo4j Graph Database]]></title>
+    <link href="http://gregdmd.com/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database/"/>
+    <updated>2014-06-22T17:36:30+10:00</updated>
+    <id>http://gregdmd.com/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database</id>
+    <content type="html"><![CDATA[<p>Today I was playing with exploring my LinkedIn network &ndash; just for fun and as a pretext to play with Neo4j.</p>
+
+<p>I&rsquo;ve managed to ask simple questions like <em>&ldquo;With whom do I have the most contacts in common?&rdquo;</em> or <em>&ldquo;What is the most popular first name in my network?&rdquo;</em> (Piotr &amp; Marcin)</p>
+
+<h2>Challange #1 &ndash; How to get the data?</h2>
+
+<p>I have decided to use <a href="http://inmaps.linkedinlabs.com/network">inmaps</a> from Linkedin. Below you can see screenshot of my network:</p>
+
+<p><img src="/images/linked_network.png" alt="alt tag" /></p>
+
+<p>By using Chrome Developer Tools you can see Network traffic made by inmaps. There are 2 interesting resources for us:</p>
+
+<p>```
+<a href="http://inmaps.linkedinlabs.com/network_data">http://inmaps.linkedinlabs.com/network_data</a>
+{
+  &ldquo;edges&rdquo;:[</p>
+
+<pre><code>{"dest":"Um6QrFGUXX","src":"Uv1KrWpoXX"}, ...
+</code></pre>
+
+<p>  ]
+}</p>
+
+<p><a href="http://inmaps.linkedinlabs.com/connections_data">http://inmaps.linkedinlabs.com/connections_data</a></p>
+
+<p>{
+  &ldquo;Um6QrFGUXX&rdquo;:{</p>
+
+<pre><code>"firstName":"Marcin",
+"lastName":"Nowak",
+"headline":"Developer"
+</code></pre>
+
+<p>  },
+  &ldquo;Uv1KrWpoXX&rdquo;:{</p>
+
+<pre><code>"firstName":"Piotr",
+"lastName":"Kowalski",
+"headline":"Manager"
+</code></pre>
+
+<p>  },
+  &hellip;
+}</p>
+
+<p>```</p>
+
+<p>I&rsquo;ve saved content of both on my file system. This is the data that we can now import into Neo4j.</p>
+
+<h2>Importing data into Neo4j</h2>
+
+<p>First you need Neo4j, you can get it here: <a href="http://www.neo4j.org/download">http://www.neo4j.org/download</a></p>
+
+<p>I&rsquo;ve used simple Ruby script similar to this in order to import data:</p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>import.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;h1&gt;gem &amp;lsquo;neo4j-core&amp;rsquo;, &amp;ldquo;~&gt;3.0.0.alpha&amp;rdquo;&lt;/</span><span class="n">h1</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="vi">@session</span> <span class="o">=</span> <span class="ss">Neo4j</span><span class="p">:</span><span class="ss">:Session</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="ss">:server_db</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="o">&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s2">&quot;http://localhost:7474&quot;</span><span class="o">&gt;</span><span class="ss">http</span><span class="p">:</span><span class="sr">//</span><span class="ss">localhost</span><span class="p">:</span><span class="mi">7474</span><span class="o">&lt;</span><span class="sr">/a&gt;&amp;rdquo;)&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">get_person</span> <span class="nb">id</span>
+</span><span class='line'>  <span class="ss">Neo4j</span><span class="p">:</span><span class="ss">:Label</span><span class="o">.</span><span class="n">find_nodes</span><span class="p">(</span><span class="ss">:person</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;def upsert_person key, value</span>
+</span><span class='line'><span class="sr">  id = key</span>
+</span><span class='line'><span class="sr">  properties = {&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="nb">id</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
+</span><span class='line'><span class="ss">firstname</span><span class="p">:</span> <span class="n">value</span><span class="o">[</span><span class="s2">&quot;firstName&quot;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'><span class="ss">lastname</span><span class="p">:</span> <span class="n">value</span><span class="o">[</span><span class="s2">&quot;lastName&quot;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'><span class="ss">headline</span><span class="p">:</span> <span class="n">value</span><span class="o">[</span><span class="s2">&quot;headline&quot;</span><span class="o">]</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="p">}</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  existing = get_person(id)</span>
+</span><span class='line'><span class="sr">  if existing&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">existing</span><span class="o">.</span><span class="n">update_props</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">else</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;person = Neo4j::Node.create(properties, :person)</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  end</span>
+</span><span class='line'><span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="k">def</span> <span class="nf">upsert_connection</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">other_id</span><span class="p">,</span> <span class="n">type</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="ss">type</span><span class="p">:</span> <span class="n">type</span><span class="p">}</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  person = get_person(id)</span>
+</span><span class='line'><span class="sr">  connection = get_person(other_id)&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="n">existing</span> <span class="o">=</span> <span class="n">person</span><span class="o">.</span><span class="n">rels</span><span class="p">(</span><span class="ss">type</span><span class="p">:</span> <span class="ss">:connected</span><span class="p">,</span> <span class="ss">dir</span><span class="p">:</span> <span class="ss">:incoming</span><span class="p">,</span> <span class="ss">between</span><span class="p">:</span> <span class="n">connection</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">existing</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;pre&gt;&lt;code&gt;existing.update_props(properties)</span>
+</span><span class='line'><span class="sr">&lt;/</span><span class="n">code</span><span class="o">&gt;&lt;</span><span class="sr">/pre&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;  else&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">pre</span><span class="o">&gt;&lt;</span><span class="n">code</span><span class="o">&gt;</span><span class="n">person</span><span class="o">.</span><span class="n">create_rel</span><span class="p">(</span><span class="ss">:connected</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+</span><span class='line'><span class="o">&lt;</span><span class="sr">/code&gt;&lt;/</span><span class="n">pre</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span>  <span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">network_data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">network_data</span><span class="o">.</span><span class="n">json</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;));</span>
+</span><span class='line'><span class="n">connections_data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lsquo</span><span class="p">;</span><span class="n">connections_data</span><span class="o">.</span><span class="n">json</span><span class="o">&amp;</span><span class="n">rsquo</span><span class="p">;));</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;connections_data.each do |key, value|</span>
+</span><span class='line'><span class="sr">  upsert_person key,value</span>
+</span><span class='line'><span class="sr">end&lt;/</span><span class="nb">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="n">connections_data</span><span class="o">[&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">edges</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">edge</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">upsert_connection</span><span class="p">(</span><span class="n">edge</span><span class="o">[&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">dest</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">]</span><span class="p">,</span><span class="n">edge</span><span class="o">[&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">src</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;</span><span class="o">]</span><span class="p">,</span><span class="o">&amp;</span><span class="n">ldquo</span><span class="p">;</span><span class="n">src</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="p">;)</span>
+</span><span class='line'><span class="k">end</span><span class="o">&lt;</span><span class="sr">/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="sr">&lt;p&gt;</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<h2>Exploring the data</h2>
+
+<p>Once data was imported I&rsquo;ve went to <a href="http://localhost:7474/browser/">http://localhost:7474/browser/</a> and started experimenting with queries.</p>
+
+<h3>With whom do I have the most contacts in common?</h3>
+
+<p><code>
+MATCH    (user)-[r]-(friend)
+WITH     user, count(friend) AS friends
+ORDER BY friends DESC
+WHERE    friends &gt; 90
+RETURN   user.firstname, user.lastname, user.headline, friends
+</code></p>
+
+<h3>What is the most popular first name in my network?</h3>
+
+<p>```
+MATCH    (user)
+WITH     user.firstname as firstname,</p>
+
+<pre><code>     collect(DISTINCT user.lastname) as lastnames,  
+     count(DISTINCT user.lastname) as c
+</code></pre>
+
+<p>ORDER    BY c DESC   <br/>
+RETURN   firstname, lastnames, c</p>
+
+<p>(&ldquo;Piotr&rdquo;, &ldquo;Marcin&rdquo;, &ldquo;Pawel&rdquo;, &ldquo;Anna&rdquo;, &ldquo;Paul&rdquo;, &ldquo;Lukasz&rdquo;)
+```</p>
+
+<h3>What are the most popular headlines in my network?</h3>
+
+<p>```
+MATCH    (user)
+WITH     left(upper(trim(user.headline)), 12) as headline,</p>
+
+<pre><code>     collect(DISTINCT (user.firstname + user.lastname)) as names,  
+     count(DISTINCT (user.firstname + user.lastname)) as c
+</code></pre>
+
+<p>ORDER    BY c DESC
+RETURN   headline, names, c</p>
+
+<p>(&ldquo;RECRUITMENT&rdquo;, &ldquo;SOFTWARE DEV&rdquo;, &ldquo;SOFTWARE ENG&rdquo;)</p>
+
+<p>```</p>
+
+<p>That&rsquo;s it for today ;)</p>
+]]></content>
+  </entry>
+  
+</feed>

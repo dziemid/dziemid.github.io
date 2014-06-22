@@ -10,7 +10,7 @@
   <meta name="google-site-verification" content="0LvHoaPkvkyPND-GPaHyBUyliHFmN10F5_AG8smu0Rk" />
 
   
-  <meta name="description" content="Summary of my recent spike with ElasticSearch, Kibana and Docker. Quick and dirty forensics Recently we had an situation were CloudTrail was &hellip;">
+  <meta name="description" content="Today I was playing with exploring my LinkedIn network &ndash; just for fun and as a pretext to play with Neo4j. I&rsquo;ve managed to ask simple &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,278 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article itemscope itemtype="http://schema.org/Article">
+      
+  <header>
+    
+      <h1 itemprop="name" class="entry-title"><a href="/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database/">Extracting Your LinkedIn Connections Into Neo4j Graph Database</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time itemprop="datePublished" content="2014-06-22T17:36:30+10:00" datetime="2014-06-22T17:36:30+10:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Today I was playing with exploring my LinkedIn network &ndash; just for fun and as a pretext to play with Neo4j.</p>
+
+<p>I&rsquo;ve managed to ask simple questions like <em>&ldquo;With whom do I have the most contacts in common?&rdquo;</em> or <em>&ldquo;What is the most popular first name in my network?&rdquo;</em> (Piotr &amp; Marcin)</p>
+
+<h2>Challange #1 &ndash; How to get the data?</h2>
+
+<p>I have decided to use <a href="http://inmaps.linkedinlabs.com/network">inmaps</a> from Linkedin. Below you can see screenshot of my network:</p>
+
+<p><img src="/images/linked_network.png" alt="alt tag" /></p>
+
+<p>By using Chrome Developer Tools you can see Network traffic made by inmaps. There are 2 interesting resources for us:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://inmaps.linkedinlabs.com/network_data
+</span><span class='line'>{
+</span><span class='line'>  "edges":[
+</span><span class='line'>    {"dest":"Um6QrFGUXX","src":"Uv1KrWpoXX"}, ...
+</span><span class='line'>  ]
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>http://inmaps.linkedinlabs.com/connections_data
+</span><span class='line'>
+</span><span class='line'>{ 
+</span><span class='line'>  "Um6QrFGUXX":{
+</span><span class='line'>    "firstName":"Marcin",
+</span><span class='line'>    "lastName":"Nowak",
+</span><span class='line'>    "headline":"Developer"
+</span><span class='line'>  },
+</span><span class='line'>  "Uv1KrWpoXX":{
+</span><span class='line'>    "firstName":"Piotr",
+</span><span class='line'>    "lastName":"Kowalski",
+</span><span class='line'>    "headline":"Manager"
+</span><span class='line'>  },
+</span><span class='line'>  ...
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&rsquo;ve saved content of both on my file system. This is the data that we can now import into Neo4j.</p>
+
+<h2>Importing data into Neo4j</h2>
+
+<p>First you need Neo4j, you can get it here: <a href="http://www.neo4j.org/download">http://www.neo4j.org/download</a></p>
+
+<p>I&rsquo;ve used simple Ruby script similar to this in order to import data:</p>
+
+<figure class='code'><figcaption><span>import.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="c1"># gem &#39;neo4j-core&#39;, &quot;~&gt;3.0.0.alpha&quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="vi">@session</span> <span class="o">=</span> <span class="ss">Neo4j</span><span class="p">:</span><span class="ss">:Session</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="ss">:server_db</span><span class="p">,</span> <span class="s2">&quot;http://localhost:7474&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_person</span> <span class="nb">id</span>
+</span><span class='line'>  <span class="ss">Neo4j</span><span class="p">:</span><span class="ss">:Label</span><span class="o">.</span><span class="n">find_nodes</span><span class="p">(</span><span class="ss">:person</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">upsert_person</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span>
+</span><span class='line'>  <span class="nb">id</span> <span class="o">=</span> <span class="n">key</span>
+</span><span class='line'>  <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">id</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">firstname</span><span class="p">:</span> <span class="n">value</span><span class="o">[</span><span class="s2">&quot;firstName&quot;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">lastname</span><span class="p">:</span> <span class="n">value</span><span class="o">[</span><span class="s2">&quot;lastName&quot;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">headline</span><span class="p">:</span> <span class="n">value</span><span class="o">[</span><span class="s2">&quot;headline&quot;</span><span class="o">]</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">existing</span> <span class="o">=</span> <span class="n">get_person</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">existing</span>
+</span><span class='line'>    <span class="n">existing</span><span class="o">.</span><span class="n">update_props</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="n">person</span> <span class="o">=</span> <span class="ss">Neo4j</span><span class="p">:</span><span class="ss">:Node</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="ss">:person</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">upsert_connection</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">other_id</span><span class="p">,</span> <span class="n">type</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="ss">type</span><span class="p">:</span> <span class="n">type</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">person</span> <span class="o">=</span> <span class="n">get_person</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">connection</span> <span class="o">=</span> <span class="n">get_person</span><span class="p">(</span><span class="n">other_id</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">existing</span> <span class="o">=</span> <span class="n">person</span><span class="o">.</span><span class="n">rels</span><span class="p">(</span><span class="ss">type</span><span class="p">:</span> <span class="ss">:connected</span><span class="p">,</span> <span class="ss">dir</span><span class="p">:</span> <span class="ss">:incoming</span><span class="p">,</span> <span class="ss">between</span><span class="p">:</span> <span class="n">connection</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">existing</span>
+</span><span class='line'>    <span class="n">existing</span><span class="o">.</span><span class="n">update_props</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="n">person</span><span class="o">.</span><span class="n">create_rel</span><span class="p">(</span><span class="ss">:connected</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">network_data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;network_data.json&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="n">connections_data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;connections_data.json&#39;</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">connections_data</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">upsert_person</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">connections_data</span><span class="o">[</span><span class="s2">&quot;edges&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">edge</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">upsert_connection</span><span class="p">(</span><span class="n">edge</span><span class="o">[</span><span class="s2">&quot;dest&quot;</span><span class="o">]</span><span class="p">,</span><span class="n">edge</span><span class="o">[</span><span class="s2">&quot;src&quot;</span><span class="o">]</span><span class="p">,</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Exploring the data</h2>
+
+<p>Once data was imported I&rsquo;ve went to <a href="http://localhost:7474/browser/">http://localhost:7474/browser/</a> and started experimenting with queries.</p>
+
+<h3>With whom do I have the most contacts in common?</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MATCH    (user)-[r]-(friend)
+</span><span class='line'>WITH     user, count(friend) AS friends
+</span><span class='line'>ORDER BY friends DESC
+</span><span class='line'>WHERE    friends &gt; 90 
+</span><span class='line'>RETURN   user.firstname, user.lastname, user.headline, friends</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>What is the most popular first name in my network?</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MATCH    (user)
+</span><span class='line'>WITH     user.firstname as firstname, 
+</span><span class='line'>         collect(DISTINCT user.lastname) as lastnames,  
+</span><span class='line'>         count(DISTINCT user.lastname) as c
+</span><span class='line'>ORDER    BY c DESC     
+</span><span class='line'>RETURN   firstname, lastnames, c
+</span><span class='line'>
+</span><span class='line'>("Piotr", "Marcin", "Pawel", "Anna", "Paul", "Lukasz")</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>What are the most popular headlines in my network?</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MATCH    (user)
+</span><span class='line'>WITH     left(upper(trim(user.headline)), 12) as headline, 
+</span><span class='line'>         collect(DISTINCT (user.firstname + user.lastname)) as names,  
+</span><span class='line'>         count(DISTINCT (user.firstname + user.lastname)) as c
+</span><span class='line'>ORDER    BY c DESC
+</span><span class='line'>RETURN   headline, names, c
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>("RECRUITMENT", "SOFTWARE DEV", "SOFTWARE ENG")
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&rsquo;s it for today ;)</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article itemscope itemtype="http://schema.org/Article">
@@ -640,6 +912,10 @@ at facilitating. I wouldn&rsquo;t recommend it as a default arrangement<sup id="
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database/">Extracting Your LinkedIn Connections Into Neo4j Graph Database</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/06/15/analysing-aws-cloudtrail-logs-with-elasticsearch-and-kibana/">Analysing AWS CloudTrail Logs With ElasticSearch and Kibana</a>
       </li>
     
@@ -653,10 +929,6 @@ at facilitating. I wouldn&rsquo;t recommend it as a default arrangement<sup id="
     
       <li class="post">
         <a href="/blog/2013/12/21/melbtram-my-first-app-for-smart-watch/">MelbTram - My First App for Smart Watch</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2013/12/21/global-day-of-coderetreat-2013/">Global Day of CodeRetreat 2013</a>
       </li>
     
   </ul>

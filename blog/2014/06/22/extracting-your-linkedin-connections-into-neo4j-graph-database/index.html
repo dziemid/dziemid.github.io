@@ -1,0 +1,561 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Extracting Your LinkedIn Connections Into Neo4j Graph Database - Greg Dziemidowicz's Blog</title>
+  <meta name="author" content="Greg Dziemidowicz">
+  <meta name="google-site-verification" content="0LvHoaPkvkyPND-GPaHyBUyliHFmN10F5_AG8smu0Rk" />
+
+  
+  <meta name="description" content="Today I was playing with exploring my LinkedIn network &ndash; just for fun and as a pretext to play with Neo4j. I&rsquo;ve managed to ask simple &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://gregdmd.com/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Greg Dziemidowicz's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-46659221-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Greg Dziemidowicz's Blog</a></h1>
+  
+    <h2>software development related topics</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:gregdmd.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article itemscope itemtype="http://schema.org/Article" class="hentry" role="article">
+  
+  <header>
+    
+      <h1 itemprop="name" class="entry-title">Extracting Your LinkedIn Connections Into Neo4j Graph Database</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time itemprop="datePublished" content="2014-06-22T17:36:30+10:00" datetime="2014-06-22T17:36:30+10:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Today I was playing with exploring my LinkedIn network &ndash; just for fun and as a pretext to play with Neo4j.</p>
+
+<p>I&rsquo;ve managed to ask simple questions like <em>&ldquo;With whom do I have the most contacts in common?&rdquo;</em> or <em>&ldquo;What is the most popular first name in my network?&rdquo;</em> (Piotr &amp; Marcin)</p>
+
+<h2>Challange #1 &ndash; How to get the data?</h2>
+
+<p>I have decided to use <a href="http://inmaps.linkedinlabs.com/network">inmaps</a> from Linkedin. Below you can see screenshot of my network:</p>
+
+<p><img src="/images/linked_network.png" alt="alt tag" /></p>
+
+<p>By using Chrome Developer Tools you can see Network traffic made by inmaps. There are 2 interesting resources for us:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://inmaps.linkedinlabs.com/network_data
+</span><span class='line'>{
+</span><span class='line'>  "edges":[
+</span><span class='line'>    {"dest":"Um6QrFGUXX","src":"Uv1KrWpoXX"}, ...
+</span><span class='line'>  ]
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>http://inmaps.linkedinlabs.com/connections_data
+</span><span class='line'>
+</span><span class='line'>{ 
+</span><span class='line'>  "Um6QrFGUXX":{
+</span><span class='line'>    "firstName":"Marcin",
+</span><span class='line'>    "lastName":"Nowak",
+</span><span class='line'>    "headline":"Developer"
+</span><span class='line'>  },
+</span><span class='line'>  "Uv1KrWpoXX":{
+</span><span class='line'>    "firstName":"Piotr",
+</span><span class='line'>    "lastName":"Kowalski",
+</span><span class='line'>    "headline":"Manager"
+</span><span class='line'>  },
+</span><span class='line'>  ...
+</span><span class='line'>}
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I&rsquo;ve saved content of both on my file system. This is the data that we can now import into Neo4j.</p>
+
+<h2>Importing data into Neo4j</h2>
+
+<p>First you need Neo4j, you can get it here: <a href="http://www.neo4j.org/download">http://www.neo4j.org/download</a></p>
+
+<p>I&rsquo;ve used simple Ruby script similar to this in order to import data:</p>
+
+<figure class='code'><figcaption><span>import.rb </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+</pre></td><td class='code'><pre><code class='rb'><span class='line'><span class="c1"># gem &#39;neo4j-core&#39;, &quot;~&gt;3.0.0.alpha&quot;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="vi">@session</span> <span class="o">=</span> <span class="ss">Neo4j</span><span class="p">:</span><span class="ss">:Session</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="ss">:server_db</span><span class="p">,</span> <span class="s2">&quot;http://localhost:7474&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">get_person</span> <span class="nb">id</span>
+</span><span class='line'>  <span class="ss">Neo4j</span><span class="p">:</span><span class="ss">:Label</span><span class="o">.</span><span class="n">find_nodes</span><span class="p">(</span><span class="ss">:person</span><span class="p">,</span> <span class="ss">:id</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">upsert_person</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span>
+</span><span class='line'>  <span class="nb">id</span> <span class="o">=</span> <span class="n">key</span>
+</span><span class='line'>  <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nb">id</span><span class="p">:</span> <span class="n">key</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">firstname</span><span class="p">:</span> <span class="n">value</span><span class="o">[</span><span class="s2">&quot;firstName&quot;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">lastname</span><span class="p">:</span> <span class="n">value</span><span class="o">[</span><span class="s2">&quot;lastName&quot;</span><span class="o">]</span><span class="p">,</span>
+</span><span class='line'>    <span class="ss">headline</span><span class="p">:</span> <span class="n">value</span><span class="o">[</span><span class="s2">&quot;headline&quot;</span><span class="o">]</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">existing</span> <span class="o">=</span> <span class="n">get_person</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">existing</span>
+</span><span class='line'>    <span class="n">existing</span><span class="o">.</span><span class="n">update_props</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="n">person</span> <span class="o">=</span> <span class="ss">Neo4j</span><span class="p">:</span><span class="ss">:Node</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">properties</span><span class="p">,</span> <span class="ss">:person</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">def</span> <span class="nf">upsert_connection</span><span class="p">(</span><span class="nb">id</span><span class="p">,</span> <span class="n">other_id</span><span class="p">,</span> <span class="n">type</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="ss">type</span><span class="p">:</span> <span class="n">type</span><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">person</span> <span class="o">=</span> <span class="n">get_person</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">connection</span> <span class="o">=</span> <span class="n">get_person</span><span class="p">(</span><span class="n">other_id</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">existing</span> <span class="o">=</span> <span class="n">person</span><span class="o">.</span><span class="n">rels</span><span class="p">(</span><span class="ss">type</span><span class="p">:</span> <span class="ss">:connected</span><span class="p">,</span> <span class="ss">dir</span><span class="p">:</span> <span class="ss">:incoming</span><span class="p">,</span> <span class="ss">between</span><span class="p">:</span> <span class="n">connection</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+</span><span class='line'>  <span class="k">if</span> <span class="n">existing</span>
+</span><span class='line'>    <span class="n">existing</span><span class="o">.</span><span class="n">update_props</span><span class="p">(</span><span class="n">properties</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">else</span>
+</span><span class='line'>    <span class="n">person</span><span class="o">.</span><span class="n">create_rel</span><span class="p">(</span><span class="ss">:connected</span><span class="p">,</span> <span class="n">connection</span><span class="p">,</span> <span class="n">properties</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">network_data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;network_data.json&#39;</span><span class="p">));</span>
+</span><span class='line'><span class="n">connections_data</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s1">&#39;connections_data.json&#39;</span><span class="p">));</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">connections_data</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">upsert_person</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">connections_data</span><span class="o">[</span><span class="s2">&quot;edges&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">edge</span><span class="o">|</span>
+</span><span class='line'>  <span class="n">upsert_connection</span><span class="p">(</span><span class="n">edge</span><span class="o">[</span><span class="s2">&quot;dest&quot;</span><span class="o">]</span><span class="p">,</span><span class="n">edge</span><span class="o">[</span><span class="s2">&quot;src&quot;</span><span class="o">]</span><span class="p">,</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Exploring the data</h2>
+
+<p>Once data was imported I&rsquo;ve went to <a href="http://localhost:7474/browser/">http://localhost:7474/browser/</a> and started experimenting with queries.</p>
+
+<h3>With whom do I have the most contacts in common?</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MATCH    (user)-[r]-(friend)
+</span><span class='line'>WITH     user, count(friend) AS friends
+</span><span class='line'>ORDER BY friends DESC
+</span><span class='line'>WHERE    friends &gt; 90 
+</span><span class='line'>RETURN   user.firstname, user.lastname, user.headline, friends</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>What is the most popular first name in my network?</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MATCH    (user)
+</span><span class='line'>WITH     user.firstname as firstname, 
+</span><span class='line'>         collect(DISTINCT user.lastname) as lastnames,  
+</span><span class='line'>         count(DISTINCT user.lastname) as c
+</span><span class='line'>ORDER    BY c DESC     
+</span><span class='line'>RETURN   firstname, lastnames, c
+</span><span class='line'>
+</span><span class='line'>("Piotr", "Marcin", "Pawel", "Anna", "Paul", "Lukasz")</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>What are the most popular headlines in my network?</h3>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>MATCH    (user)
+</span><span class='line'>WITH     left(upper(trim(user.headline)), 12) as headline, 
+</span><span class='line'>         collect(DISTINCT (user.firstname + user.lastname)) as names,  
+</span><span class='line'>         count(DISTINCT (user.firstname + user.lastname)) as c
+</span><span class='line'>ORDER    BY c DESC
+</span><span class='line'>RETURN   headline, names, c
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>("RECRUITMENT", "SOFTWARE DEV", "SOFTWARE ENG")
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&rsquo;s it for today ;)</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person">Posted by <span  itemprop="name" class="fn">Greg Dziemidowicz</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time itemprop="datePublished" content="2014-06-22T17:36:30+10:00" datetime="2014-06-22T17:36:30+10:00" pubdate data-updated="true">Jun 22<span>nd</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/neo4j/'>neo4j</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://gregdmd.com/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database/" data-via="dziemid" data-counturl="http://gregdmd.com/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/06/15/analysing-aws-cloudtrail-logs-with-elasticsearch-and-kibana/" title="Previous Post: Analysing AWS CloudTrail logs with ElasticSearch and Kibana">&laquo; Analysing AWS CloudTrail logs with ElasticSearch and Kibana</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>About Me</h1>
+  <a href="http://www.linkedin.com/in/grzegorzdziemidowicz" style="white-space: normal">
+    <img itemprop="image" src="http://agilesurfing.pl/wp-content/uploads/2014/06/greg.jpg"/>
+  </a>
+
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database/">Extracting Your LinkedIn Connections Into Neo4j Graph Database</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/06/15/analysing-aws-cloudtrail-logs-with-elasticsearch-and-kibana/">Analysing AWS CloudTrail Logs With ElasticSearch and Kibana</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/05/25/what-should-i-focus-on/">What Should I Focus On?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/03/25/make-it-happen/">Make It Happen</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/21/melbtram-my-first-app-for-smart-watch/">MelbTram - My First App for Smart Watch</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/dziemid">@dziemid</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'dziemid',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section>
+    <h1>Twitter</h1>
+
+    <a class="twitter-timeline" href="https://twitter.com/dziemid" data-widget-id="414308742792900608">Tweets by @dziemid</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+</section>
+
+
+<section class="googleplus googleplus-hidden">
+  <h1>
+    <a href="https://plus.google.com/109752048953709112045?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Greg Dziemidowicz -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'gregdmd';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gregdmd.com/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database/';
+        var disqus_url = 'http://gregdmd.com/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
