@@ -14,7 +14,7 @@ I've managed to ask simple questions like *"With whom do I have the most contact
 
 I have decided to use [inmaps](http://inmaps.linkedinlabs.com/network) from Linkedin. Below you can see screenshot of my network:
 
-![alt tag](/images/linked_network.png)
+![alt tag](/images/linked_network.jpg)
 
 By using Chrome Developer Tools you can see Network traffic made by inmaps. There are 2 interesting resources for us:
 
