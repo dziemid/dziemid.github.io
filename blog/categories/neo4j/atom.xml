@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Neo4j | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/neo4j/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-06-22T18:43:35+10:00</updated>
+  <updated>2014-06-22T18:58:28+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -216,7 +216,7 @@
 
 <h2>Exploring the data</h2>
 
-<p>Once data was imported I&rsquo;ve went to <a href="http://localhost:7474/browser/">http://localhost:7474/browser/</a> and started experimenting with queries.</p>
+<p>Once data was imported I went to <a href="http://localhost:7474/browser/">http://localhost:7474/browser/</a> and started experimenting with queries.</p>
 
 <h3>With whom do I have the most contacts in common?</h3>
 
