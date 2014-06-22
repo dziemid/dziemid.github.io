@@ -111,7 +111,7 @@ end
 
 ## Exploring the data
 
-Once data was imported I've went to http://localhost:7474/browser/ and started experimenting with queries.
+Once data was imported I went to http://localhost:7474/browser/ and started experimenting with queries.
 
 ### With whom do I have the most contacts in common?
 
