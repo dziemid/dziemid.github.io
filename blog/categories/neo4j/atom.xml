@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Neo4j | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/neo4j/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-06-22T18:31:51+10:00</updated>
+  <updated>2014-06-22T18:43:35+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -26,7 +26,7 @@
 
 <p>I have decided to use <a href="http://inmaps.linkedinlabs.com/network">inmaps</a> from Linkedin. Below you can see screenshot of my network:</p>
 
-<p><img src="/images/linked_network.png" alt="alt tag" /></p>
+<p><img src="/images/linked_network.jpg" alt="alt tag" /></p>
 
 <p>By using Chrome Developer Tools you can see Network traffic made by inmaps. There are 2 interesting resources for us:</p>
 
