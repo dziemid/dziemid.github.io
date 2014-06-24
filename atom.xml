@@ -4,7 +4,7 @@
   <title><![CDATA[Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-06-24T21:33:59+10:00</updated>
+  <updated>2014-06-24T23:40:22+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -192,7 +192,7 @@
 </span><span class='line'>  <span class="n">upsert_person</span> <span class="n">key</span><span class="p">,</span><span class="n">value</span>
 </span><span class='line'><span class="k">end</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">connections_data</span><span class="o">[</span><span class="s2">&quot;edges&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">edge</span><span class="o">|</span>
+</span><span class='line'><span class="n">network_data</span><span class="o">[</span><span class="s2">&quot;edges&quot;</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">edge</span><span class="o">|</span>
 </span><span class='line'>  <span class="n">upsert_connection</span><span class="p">(</span><span class="n">edge</span><span class="o">[</span><span class="s2">&quot;dest&quot;</span><span class="o">]</span><span class="p">,</span><span class="n">edge</span><span class="o">[</span><span class="s2">&quot;src&quot;</span><span class="o">]</span><span class="p">,</span><span class="s2">&quot;src&quot;</span><span class="p">)</span>
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
