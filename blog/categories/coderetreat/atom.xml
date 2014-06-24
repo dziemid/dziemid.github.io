@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Coderetreat | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/coderetreat/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-06-22T18:58:28+10:00</updated>
+  <updated>2014-06-24T21:33:59+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -31,7 +31,11 @@ It was the first Global CodeRetreat I&rsquo;ve attended, rather then facilitated
 <p>As always the day was full of fun and learning :) In Melbourne we had a good mixed group
 of around 25 developers. People were programming in Ruby, JavaScript, Java, PHP and probably some other languages as well.</p>
 
-<p>CodeRetreat was hosted by REA with food sponsored by ThoughtWorks. REA was hosting us for the second time in the last 2 months &ndash;
+<!--more-->
+
+
+<p>
+CodeRetreat was hosted by REA with food sponsored by ThoughtWorks. REA was hosting us for the second time in the last 2 months &ndash;
 not so long ago we had run an <a href="http://techblog.realestate.com.au/tdd-in-bash-aka-our-1st-internal-code-retreat-rea/">internal CodeRetreat</a> there.</p>
 
 <p>Surround your pullquote like this {" text to be quoted "}</p>

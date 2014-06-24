@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Aws | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/aws/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-06-22T18:58:28+10:00</updated>
+  <updated>2014-06-24T21:33:59+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -25,6 +25,11 @@
 <p>Recently we had an situation were <a href="http://aws.amazon.com/cloudtrail/">CloudTrail</a> was invaluable tool in finding out what happened. The only issue was usability of the logs.</p>
 
 <p>We are new to the tool, so at the time we had a logging enabled, but not much more. When the incident happened we pretty much just run <code>s3sync sync</code> and than worked with logs &ldquo;by hand&rdquo; in a manner similar to this:</p>
+
+<!--more-->
+
+
+<p></p>
 
 <p><code>
 cat * | jq . -C | grep -i eventname -A 10 -B 10 \

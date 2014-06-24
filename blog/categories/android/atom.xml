@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-06-22T18:58:28+10:00</updated>
+  <updated>2014-06-24T21:33:59+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -28,7 +28,11 @@ I have chosen Sony Smart Watch, mainly because it runs Android and supports my <
 <p>I have created my first app in two sessions on consecutive weekends (two Sundays). The first session was about being able to deploy
 simple &ldquo;Hello World&rdquo; app to the watch.</p>
 
-<p>As I never developed before for Android, the first challenge was how to put my phone into debug mode. It&rsquo;s quite easy:</p>
+<!--more-->
+
+
+<p>
+As I never developed before for Android, the first challenge was how to put my phone into debug mode. It&rsquo;s quite easy:</p>
 
 <p><blockquote><p>At the “About” screen, scroll to the bottom and tap on “Build number” seven times.</p><footer><strong>mr.boyfox <a href="http://stackoverflow.com/questions/16707137/how-to-find-and-turn-on-usb-debugging-mode-on-nexus-4">http://stackoverflow.com/questions/16707137/how-to-find-and-turn-on-usb-debugging-mode-on-nexus-4</a></strong></footer></blockquote></p>
 

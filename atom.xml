@@ -4,7 +4,7 @@
   <title><![CDATA[Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-06-22T18:58:28+10:00</updated>
+  <updated>2014-06-24T21:33:59+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -25,6 +25,11 @@
 <h2>Challange #1 &ndash; How to get the data?</h2>
 
 <p>I have decided to use <a href="http://inmaps.linkedinlabs.com/network">inmaps</a> from Linkedin. Below you can see screenshot of my network:</p>
+
+<!--more-->
+
+
+<p></p>
 
 <p><img src="http://gregdmd.com/images/linked_network.jpg" alt="alt tag" /></p>
 
@@ -271,6 +276,11 @@
 
 <p>We are new to the tool, so at the time we had a logging enabled, but not much more. When the incident happened we pretty much just run <code>s3sync sync</code> and than worked with logs &ldquo;by hand&rdquo; in a manner similar to this:</p>
 
+<!--more-->
+
+
+<p></p>
+
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>cat * | jq . -C | grep -i eventname -A 10 -B 10 \
@@ -344,6 +354,11 @@ Talking with colleague on the tram an idea emerged in my head. How hard would it
 
 <p>In this short post I will share some of the things I have been doing to get myself on the right track again.</p>
 
+<!--more-->
+
+
+<p></p>
+
 <h2>What should I work on?</h2>
 
 <p>This is maybe the most difficult question, but once you get it figured out everything else becomes easier.</p>
@@ -406,6 +421,11 @@ Talking with colleague on the tram an idea emerged in my head. How hard would it
 
 <p>and we did.</p>
 
+<!--more-->
+
+
+<p></p>
+
 <p>If you are working with other people, and sometimes you want to change things then please listen. I would like to share with you 3 simple techniques you can do, to introduce new ideas successfully.</p>
 
 <p><span class='pullquote-right' data-pullquote='“Brown bag”. It’s a informal meeting held over lunch'>
@@ -449,7 +469,11 @@ I have chosen Sony Smart Watch, mainly because it runs Android and supports my <
 <p>I have created my first app in two sessions on consecutive weekends (two Sundays). The first session was about being able to deploy
 simple &ldquo;Hello World&rdquo; app to the watch.</p>
 
-<p>As I never developed before for Android, the first challenge was how to put my phone into debug mode. It&rsquo;s quite easy:</p>
+<!--more-->
+
+
+<p>
+As I never developed before for Android, the first challenge was how to put my phone into debug mode. It&rsquo;s quite easy:</p>
 
 <blockquote><p>At the “About” screen, scroll to the bottom and tap on “Build number” seven times.</p><footer><strong>mr.boyfox</strong> <cite><a href='http://stackoverflow.com/questions/16707137/how-to-find-and-turn-on-usb-debugging-mode-on-nexus-4'>stackoverflow.com/questions/&hellip;</a></cite></footer></blockquote>
 
@@ -579,7 +603,11 @@ It was the first Global CodeRetreat I&rsquo;ve attended, rather then facilitated
 <p>As always the day was full of fun and learning :) In Melbourne we had a good mixed group
 of around 25 developers. People were programming in Ruby, JavaScript, Java, PHP and probably some other languages as well.</p>
 
-<p>CodeRetreat was hosted by REA with food sponsored by ThoughtWorks. REA was hosting us for the second time in the last 2 months &ndash;
+<!--more-->
+
+
+<p>
+CodeRetreat was hosted by REA with food sponsored by ThoughtWorks. REA was hosting us for the second time in the last 2 months &ndash;
 not so long ago we had run an <a href="http://techblog.realestate.com.au/tdd-in-bash-aka-our-1st-internal-code-retreat-rea/">internal CodeRetreat</a> there.</p>
 
 <p><span class='pullquote-right' data-pullquote='&#8220;Multi-facilitation&#8221; was interesting experiment we tried.'>

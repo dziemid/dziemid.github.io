@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Neo4j | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/neo4j/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-06-22T18:58:28+10:00</updated>
+  <updated>2014-06-24T21:33:59+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -25,6 +25,11 @@
 <h2>Challange #1 &ndash; How to get the data?</h2>
 
 <p>I have decided to use <a href="http://inmaps.linkedinlabs.com/network">inmaps</a> from Linkedin. Below you can see screenshot of my network:</p>
+
+<!--more-->
+
+
+<p></p>
 
 <p><img src="/images/linked_network.jpg" alt="alt tag" /></p>
 
