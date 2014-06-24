@@ -16,6 +16,7 @@ I have chosen Sony Smart Watch, mainly because it runs Android and supports my [
 I have created my first app in two sessions on consecutive weekends (two Sundays). The first session was about being able to deploy
 simple "Hello World" app to the watch.
 
+<!--more--> 
 As I never developed before for Android, the first challenge was how to put my phone into debug mode. It's quite easy:
 
 {% blockquote mr.boyfox http://stackoverflow.com/questions/16707137/how-to-find-and-turn-on-usb-debugging-mode-on-nexus-4 %}

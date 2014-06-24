@@ -10,6 +10,7 @@ I am working again on my goals. I want to be focused and work on the most import
 
 In this short post I will share some of the things I have been doing to get myself on the right track again.
 
+<!--more--> 
 ## What should I work on?
 
 This is maybe the most difficult question, but once you get it figured out everything else becomes easier.

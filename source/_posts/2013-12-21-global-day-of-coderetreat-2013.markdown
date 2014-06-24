@@ -20,6 +20,7 @@ It was the first Global CodeRetreat I've attended, rather then facilitated :)
 As always the day was full of fun and learning :) In Melbourne we had a good mixed group
 of around 25 developers. People were programming in Ruby, JavaScript, Java, PHP and probably some other languages as well.
 
+<!--more--> 
 CodeRetreat was hosted by REA with food sponsored by ThoughtWorks. REA was hosting us for the second time in the last 2 months -
 not so long ago we had run an [internal CodeRetreat](http://techblog.realestate.com.au/tdd-in-bash-aka-our-1st-internal-code-retreat-rea/) there.
 

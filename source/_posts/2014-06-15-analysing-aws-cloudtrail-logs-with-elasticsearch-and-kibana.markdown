@@ -13,6 +13,7 @@ Summary of my recent spike with ElasticSearch, Kibana and Docker.
 Recently we had an situation were [CloudTrail](http://aws.amazon.com/cloudtrail/) was invaluable tool in finding out what happened. The only issue was usability of the logs.
 
 We are new to the tool, so at the time we had a logging enabled, but not much more. When the incident happened we pretty much just run ```s3sync sync``` and than worked with logs "by hand" in a manner similar to this:
+<!--more--> 
 
 ```
 cat * | jq . -C | grep -i eventname -A 10 -B 10 \

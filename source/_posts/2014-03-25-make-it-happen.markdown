@@ -20,6 +20,7 @@ Two years ago a bus full of employes of 1 company department was heading for a t
 {% endblockquote %}
 
 and we did. 
+<!--more--> 
 
 If you are working with other people, and sometimes you want to change things then please listen. I would like to share with you 3 simple techniques you can do, to introduce new ideas successfully.
 
