@@ -104,7 +104,7 @@ connections_data.each do |key, value|
   upsert_person key,value
 end
 
-connections_data["edges"].each do |edge|
+network_data["edges"].each do |edge|
   upsert_connection(edge["dest"],edge["src"],"src") 
 end
 
