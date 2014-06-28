@@ -87,12 +87,16 @@ article + article {
     background: $img-border top left repeat-x;
   }
 }
+
 #content .blog-index {
   padding: { top: 0; bottom: 0; }
   article { padding-top: 2em; }
   article header { background: none; padding-bottom: 0; }
   article h1 {
-    font-size: 2.2em;
+    font-size: 2.0em;
+    @media (max-width: 500px) {
+        font-size: 1.7em;
+    }
     a { color: inherit; &:hover { color: $link-color-hover; } }
   }
   a[rel=full-article] {
