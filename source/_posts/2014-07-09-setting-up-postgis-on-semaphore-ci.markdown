@@ -6,7 +6,7 @@ comments: true
 categories: postgis ruby
 ---
 
-Example how setup semaphoreapp.com CI so that it can run tests requiring postgis:
+Example how configure semaphoreapp.com CI so that it can run tests requiring postgis:
 
 <!--more--> 
 
