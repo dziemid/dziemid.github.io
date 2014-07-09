@@ -4,7 +4,7 @@
   <title><![CDATA[Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-06-28T22:38:54+10:00</updated>
+  <updated>2014-07-09T23:55:28+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -12,6 +12,54 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Setting Up PostGIS on Semaphore CI]]></title>
+    <link href="http://gregdmd.com/blog/2014/07/09/setting-up-postgis-on-semaphore-ci/"/>
+    <updated>2014-07-09T23:50:27+10:00</updated>
+    <id>http://gregdmd.com/blog/2014/07/09/setting-up-postgis-on-semaphore-ci</id>
+    <content type="html"><![CDATA[<p>Example how setup semaphoreapp.com CI so that it can run tests requiring postgis:</p>
+
+<!--more-->
+
+
+<p></p>
+
+<figure class='code'><figcaption><span>ci_semaphore.sh </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#! /bin/bash</span>
+</span><span class='line'><span class="nb">set</span> -e
+</span><span class='line'>
+</span><span class='line'>sudo apt-add-repository -y ppa:ubuntugis/ppa
+</span><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install -y postgresql-9.3-postgis
+</span><span class='line'>createdb <span class="nv">$DATABASE_NAME_TEST</span> -U <span class="nv">$DATABASE_POSTGRESQL_USERNAME</span>
+</span><span class='line'>
+</span><span class='line'>psql -c <span class="s1">&#39;CREATE EXTENSION postgis;&#39;</span> -U <span class="nv">$DATABASE_POSTGRESQL_USERNAME</span> -d <span class="nv">$DATABASE_NAME_TEST</span>
+</span><span class='line'>psql -c <span class="s1">&#39;CREATE EXTENSION postgis_topology;&#39;</span> -U <span class="nv">$DATABASE_POSTGRESQL_USERNAME</span> -d <span class="nv">$DATABASE_NAME_TEST</span>
+</span><span class='line'>bundle install --deployment --path vendor/bundle
+</span><span class='line'>
+</span><span class='line'>bundle <span class="nb">exec </span>rake db:setup
+</span><span class='line'>bundle <span class="nb">exec </span>rake db:test:prepare
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I coundn&rsquo;t google it myself, so I hope this helps!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Extracting Your LinkedIn Connections Into Neo4j Graph Database]]></title>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Postgis | Greg Dziemidowicz's Blog]]></title>
+  <link href="http://gregdmd.com/blog/categories/postgis/atom.xml" rel="self"/>
+  <link href="http://gregdmd.com/"/>
+  <updated>2014-07-09T23:55:28+10:00</updated>
+  <id>http://gregdmd.com/</id>
+  <author>
+    <name><![CDATA[Greg Dziemidowicz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Setting Up PostGIS on Semaphore CI]]></title>
+    <link href="http://gregdmd.com/blog/2014/07/09/setting-up-postgis-on-semaphore-ci/"/>
+    <updated>2014-07-09T23:50:27+10:00</updated>
+    <id>http://gregdmd.com/blog/2014/07/09/setting-up-postgis-on-semaphore-ci</id>
+    <content type="html"><![CDATA[<p>Example how setup semaphoreapp.com CI so that it can run tests requiring postgis:</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span>ci_semaphore.sh </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;h1&gt;! /bin/bash&lt;/h1&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;set -e&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;sudo apt-add-repository -y ppa:ubuntugis/ppa
+</span><span class='line'>sudo apt-get update
+</span><span class='line'>sudo apt-get install -y postgresql-9.3-postgis
+</span><span class='line'>createdb <span class="nv">$DATABASE_NAME_TEST</span> -U <span class="nv">$DATABASE_POSTGRESQL_USERNAME</span>&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;psql -c &amp;lsquo;CREATE EXTENSION postgis;&amp;rsquo; -U <span class="nv">$DATABASE_POSTGRESQL_USERNAME</span> -d <span class="nv">$DATABASE_NAME_TEST</span>
+</span><span class='line'>psql -c &amp;lsquo;CREATE EXTENSION postgis_topology;&amp;rsquo; -U <span class="nv">$DATABASE_POSTGRESQL_USERNAME</span> -d <span class="nv">$DATABASE_NAME_TEST</span>
+</span><span class='line'>bundle install &amp;mdash;deployment &amp;mdash;path vendor/bundle&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;bundle <span class="nb">exec </span>rake db:setup
+</span><span class='line'>bundle <span class="nb">exec </span>rake db:test:prepare&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<p>I coundn&rsquo;t google it myself, so I hope this helps!</p>
+]]></content>
+  </entry>
+  
+</feed>
