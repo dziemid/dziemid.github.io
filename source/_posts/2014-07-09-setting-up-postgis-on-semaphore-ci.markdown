@@ -12,7 +12,7 @@ Example how configure semaphoreapp.com CI so that it can run tests requiring pos
 
 {% codeblock ci_semaphore.sh %}
 
-#! /bin/bash
+#!/bin/bash
 set -e
 
 sudo apt-add-repository -y ppa:ubuntugis/ppa
