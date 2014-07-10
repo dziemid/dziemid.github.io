@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Ruby | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/ruby/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-07-09T23:55:28+10:00</updated>
+  <updated>2014-07-10T21:36:27+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -18,7 +18,7 @@
     <link href="http://gregdmd.com/blog/2014/07/09/setting-up-postgis-on-semaphore-ci/"/>
     <updated>2014-07-09T23:50:27+10:00</updated>
     <id>http://gregdmd.com/blog/2014/07/09/setting-up-postgis-on-semaphore-ci</id>
-    <content type="html"><![CDATA[<p>Example how setup semaphoreapp.com CI so that it can run tests requiring postgis:</p>
+    <content type="html"><![CDATA[<p>Example how configure semaphoreapp.com CI so that it can run tests requiring postgis:</p>
 
 <!--more-->
 
@@ -47,7 +47,7 @@
 <span class='line-number'>19</span>
 </pre></td><td class='code'><pre><code class='sh'><span class='line'>&lt;/p&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;h1&gt;! /bin/bash&lt;/h1&gt;
+</span><span class='line'>&lt;h1&gt;!/bin/bash&lt;/h1&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;set -e&lt;/p&gt;
 </span><span class='line'>

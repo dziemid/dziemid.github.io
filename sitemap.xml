@@ -30,15 +30,21 @@
     </url>
     <url>
         <loc>http://gregdmd.com/blog/2014/07/09/setting-up-postgis-on-semaphore-ci/</loc>
-        <lastmod>2014-07-09T23:55:28+10:00</lastmod>
+        <lastmod>2014-07-10T21:30:25+10:00</lastmod>
+    </url>
+    <url>
+        <loc>
+            http://gregdmd.com/blog/2014/07/10/conditional-commit-when-deploying-to-heroku-with-semaphoreapp-ci/
+        </loc>
+        <lastmod>2014-07-10T21:36:26+10:00</lastmod>
     </url>
     <url>
         <loc>http://gregdmd.com/blog/archives/</loc>
-        <lastmod>2014-07-09T23:55:28+10:00</lastmod>
+        <lastmod>2014-07-10T21:36:26+10:00</lastmod>
     </url>
     <url>
         <loc>http://gregdmd.com/</loc>
-        <lastmod>2014-07-09T23:55:28+10:00</lastmod>
+        <lastmod>2014-07-10T21:36:26+10:00</lastmod>
     </url>
     <url>
         <loc>http://gregdmd.com/robots.txt</loc>

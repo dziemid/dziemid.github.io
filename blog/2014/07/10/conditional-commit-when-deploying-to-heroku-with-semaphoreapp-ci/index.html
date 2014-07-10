@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: Agile - Greg Dziemidowicz's Blog</title>
+  <title>Conditional Commit When Deploying to Heroku With Semaphore CI - Greg Dziemidowicz's Blog</title>
   <meta name="author" content="Greg Dziemidowicz">
   <meta name="google-site-verification" content="0LvHoaPkvkyPND-GPaHyBUyliHFmN10F5_AG8smu0Rk" />
 
   
-  <meta name="description" content="Category: agile">
+  <meta name="description" content="Let&rsquo;s say that before deploying to Heroku we want to check for any assets changes, and in case we find some we want to do some work. If there &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://gregdmd.comblog/categories/agile">
+  <link rel="canonical" href="http://gregdmd.com/blog/2014/07/10/conditional-commit-when-deploying-to-heroku-with-semaphoreapp-ci">
   <link rel="author" href="https://plus.google.com/109752048953709112045"/>
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -73,36 +73,159 @@
   <div id="main">
     <div id="content">
       <div>
-<article itemscope itemtype="http://schema.org/Article" role="article">
+<article itemscope itemtype="http://schema.org/Article" class="hentry" role="article">
   
   <header>
-    <h1 class="entry-title">Category: Agile</h1>
+    
+      <h1 itemprop="name" class="entry-title">Conditional Commit When Deploying to Heroku With Semaphore CI</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time itemprop="datePublished" content="2014-07-10T21:04:49+10:00" datetime="2014-07-10T21:04:49+10:00" pubdate data-updated="true">Jul 10<span>th</span>, 2014</time>
+        
+      </p>
     
   </header>
-  
-  <div id="blog-archives" class="category">
 
 
+<div class="entry-content"><p>Let&rsquo;s say that before deploying to Heroku we want to check for any assets changes, and in case we find some we want to do some work.</p>
 
-  
-  <h2>2014</h2>
+<p>If there are changes, we want to precompile assets and push any changes back to repo.</p>
 
-<article>
-  
-<h1><a href="/blog/2014/03/25/make-it-happen/">Make It Happen</a></h1>
-<time datetime="2014-03-25T22:11:49+11:00" pubdate><span class='month'>Mar</span> <span class='day'>25</span> <span class='year'>2014</span></time>
+<p>Here is example deploy script that does it:</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/agile/'>agile</a></span>
-</footer>
+<!--more-->
 
 
-</article>
+<p></p>
+
+<figure class='code'><figcaption><span>ci_semaphore_deploy.sh </span></figcaption>
+<div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/bash</span>
+</span><span class='line'>
+</span><span class='line'>git fetch heroku
+</span><span class='line'>
+</span><span class='line'><span class="o">[</span> <span class="k">$(</span>git diff master heroku/master app/assets | wc -l<span class="k">)</span> -gt 0 <span class="o">]</span> <span class="o">||</span> <span class="nv">ASSET_CHANGE</span><span class="o">=</span>1
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$ASSET_CHANGE&quot;</span> <span class="o">]</span>;
+</span><span class='line'><span class="k">then</span>
+</span><span class='line'><span class="k">    </span>git reset --hard
+</span><span class='line'>    git config --global user.email <span class="s2">&quot;hi@example.com&quot;</span>
+</span><span class='line'>    git config --global user.name <span class="s2">&quot;semaphoreapp &quot;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nv">RAILS_GROUPS</span><span class="o">=</span>assets <span class="nv">RAILS_ENV</span><span class="o">=</span>production bundle <span class="nb">exec </span>rake assets:precompile
+</span><span class='line'>    git add --all public/assets
+</span><span class='line'>    git commit -m <span class="s2">&quot;Update asset manifest before deploying [ci skip]&quot;</span>
+</span><span class='line'>    git push origin master
+</span><span class='line'><span class="k">else</span>
+</span><span class='line'><span class="k">    </span><span class="nb">echo</span> <span class="s2">&quot;No asset changes detected...&quot;</span>
+</span><span class='line'><span class="k">fi</span>
+</span><span class='line'>
+</span><span class='line'>git push --force heroku <span class="nv">$BRANCH_NAME</span>:master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Interesting bits:</p>
+
+<ul>
+<li>Line 3 and 5: To see if there are any changes we need to fetch branches from heroku.</li>
+<li>Line 9:  Semaphore CI is rewritting <code>config/database.yml</code> which was problematic combined with <code>RAILS_ENV=production</code></li>
+<li>Line 10,11: We need to do this to make <code>git push</code> work. Also, you will need to <a href="https://semaphoreapp.com/docs/adding-more-ssh-keys.html">add extra ssh key</a> to be able to push.</li>
+</ul>
 
 </div>
 
+
+  <footer>
+    <p class="meta">
+      
   
+
+<span class="byline author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person">Posted by <span  itemprop="name" class="fn">Greg Dziemidowicz</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time itemprop="datePublished" content="2014-07-10T21:04:49+10:00" datetime="2014-07-10T21:04:49+10:00" pubdate data-updated="true">Jul 10<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/heroku/'>heroku</a>, <a class='category' href='/blog/categories/semaphoreapp/'>semaphoreapp</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://gregdmd.com/blog/2014/07/10/conditional-commit-when-deploying-to-heroku-with-semaphoreapp-ci/" data-via="dziemid" data-counturl="http://gregdmd.com/blog/2014/07/10/conditional-commit-when-deploying-to-heroku-with-semaphoreapp-ci/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/07/09/setting-up-postgis-on-semaphore-ci/" title="Previous Post: Setting up PostGIS on Semaphore CI">&laquo; Setting up PostGIS on Semaphore CI</a>
+      
+      
+    </p>
+  </footer>
 </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
 
 </div>
 
@@ -209,7 +332,10 @@
       var disqus_shortname = 'gregdmd';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://gregdmd.com/blog/2014/07/10/conditional-commit-when-deploying-to-heroku-with-semaphoreapp-ci/';
+        var disqus_url = 'http://gregdmd.com/blog/2014/07/10/conditional-commit-when-deploying-to-heroku-with-semaphoreapp-ci/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

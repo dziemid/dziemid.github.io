@@ -10,7 +10,7 @@
   <meta name="google-site-verification" content="0LvHoaPkvkyPND-GPaHyBUyliHFmN10F5_AG8smu0Rk" />
 
   
-  <meta name="description" content="Example how setup semaphoreapp.com CI so that it can run tests requiring postgis: ci_semaphore.sh 1
+  <meta name="description" content="Example how configure semaphoreapp.com CI so that it can run tests requiring postgis: ci_semaphore.sh 1
 2
 3
 4
@@ -24,8 +24,7 @@
 12
 13
 14
-#! /bin/bash
-set - &hellip;">
+#!/bin/bash &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -115,7 +114,7 @@ set - &hellip;">
   </header>
 
 
-<div class="entry-content"><p>Example how setup semaphoreapp.com CI so that it can run tests requiring postgis:</p>
+<div class="entry-content"><p>Example how configure semaphoreapp.com CI so that it can run tests requiring postgis:</p>
 
 <!--more-->
 
@@ -137,7 +136,7 @@ set - &hellip;">
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
 <span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#! /bin/bash</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c">#!/bin/bash</span>
 </span><span class='line'><span class="nb">set</span> -e
 </span><span class='line'>
 </span><span class='line'>sudo apt-add-repository -y ppa:ubuntugis/ppa
@@ -207,6 +206,8 @@ set - &hellip;">
         <a class="basic-alignment left" href="/blog/2014/06/22/extracting-your-linkedin-connections-into-neo4j-graph-database/" title="Previous Post: Extracting your LinkedIn connections into Neo4j graph database">&laquo; Extracting your LinkedIn connections into Neo4j graph database</a>
       
       
+        <a class="basic-alignment right" href="/blog/2014/07/10/conditional-commit-when-deploying-to-heroku-with-semaphoreapp-ci/" title="Next Post: Conditional commit when Deploying to Heroku with Semaphore CI">Conditional commit when Deploying to Heroku with Semaphore CI &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -233,6 +234,10 @@ set - &hellip;">
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog/2014/07/10/conditional-commit-when-deploying-to-heroku-with-semaphoreapp-ci/">Conditional Commit When Deploying to Heroku With Semaphore CI</a>
+      </li>
+    
+      <li class="post">
         <a href="/blog/2014/07/09/setting-up-postgis-on-semaphore-ci/">Setting Up PostGIS on Semaphore CI</a>
       </li>
     
@@ -246,10 +251,6 @@ set - &hellip;">
     
       <li class="post">
         <a href="/blog/2014/05/25/what-should-i-focus-on/">What Should I Focus On?</a>
-      </li>
-    
-      <li class="post">
-        <a href="/blog/2014/03/25/make-it-happen/">Make It Happen</a>
       </li>
     
   </ul>
