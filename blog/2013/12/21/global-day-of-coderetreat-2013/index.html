@@ -41,6 +41,17 @@ This year &hellip;">
       var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
   </script>
+  <script>
+
+  var trackOutboundLink = function(url) {
+    try { 
+      _gaq.push(['_trackEvent', 'Outbound', 'Click', url]);
+    } catch(err){}
+    setTimeout('document.location = "' + url + '"', 100);
+    return false;
+   
+  }
+  </script>
 
 
 </head>
@@ -269,7 +280,7 @@ at facilitating. I wouldn&rsquo;t recommend it as a default arrangement<sup id="
   
     <section>
   <h1>About Me</h1>
-  <a href="http://www.linkedin.com/in/grzegorzdziemidowicz" style="white-space: normal">
+  <a href="http://www.linkedin.com/in/grzegorzdziemidowicz" style="white-space: normal" onclick="trackOutboundLink('http://www.linkedin.com/in/grzegorzdziemidowicz'); return false;">
     <img itemprop="image" src="http://agilesurfing.pl/wp-content/uploads/2014/06/greg.jpg"/>
   </a>
 
