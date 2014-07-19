@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Gtd | Greg Dziemidowicz's Blog]]></title>
-  <link href="http://gregdmd.com/blog/categories/gtd/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Toastmasters | Greg Dziemidowicz's Blog]]></title>
+  <link href="http://gregdmd.com/blog/categories/toastmasters/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
   <updated>2014-07-19T20:35:39+10:00</updated>
   <id>http://gregdmd.com/</id>
@@ -12,6 +12,40 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Dinging Ah-Counter Android App]]></title>
+    <link href="http://gregdmd.com/blog/2014/07/19/dinging-ah-counter-android-app/"/>
+    <updated>2014-07-19T20:10:58+10:00</updated>
+    <id>http://gregdmd.com/blog/2014/07/19/dinging-ah-counter-android-app</id>
+    <content type="html"><![CDATA[<p>The Ah-Counter is responsible for noting and keeping track of words and sounds used as a ‘crutch’ or
+‘pause filler’ by anyone who speaks during the <a href="http://www.toastmasters.org/Members/MemberExperience/MeetingRoles/Ahcounter.aspx">Toastmasters meeting</a>. Words may be inappropriate interjections such
+as <em>and</em>, <em>well</em>, <em>but</em>, <em>so</em>, <em>like</em>, <em>you know</em>. Sounds may be <em>ah</em>, <em>um</em>, <em>er</em>.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>If you are a speaker, at the end of the meeting Ah-Counter will tell you how many times he caught you making inappropriate interjections, for example:</p>
+
+<p><blockquote><p>&hellip;<br/>Greg &ndash; 7 times.<br/>Mark &ndash; only 1 time.<br/>&hellip;</p><footer><strong>Ah-Counter</strong></footer></blockquote></p>
+
+<p>This always leaves me wondering: &ldquo;When exactly do I make those sounds?&rdquo;. Reports like this are delivered too late, after I had already finished speaking.</p>
+
+<p>I&rsquo;ve seen clubs solve this problem &ndash; Ah-Counter has a ring and uses it anytime he catches you. &ldquo;Ding!&rdquo; and immediately you are reminded to stop making &ldquo;um&rdquo;.</p>
+
+<p>My current assignment is to get a dinging device for my club &ndash; <a href="http://easy-speak.org/clubdata.php?c=4566">Docklands Toastmasters</a>. I&rsquo;ve spent some time today going around shops looking for something like this:</p>
+
+<p><img src="/images/tablebell.jpg" alt="bell" /></p>
+
+<p>but I couldn&rsquo;t find any&hellip; So instead I&rsquo;ve made an app ;)</p>
+
+<p>You can get <a href="https://play.google.com/store/apps/details?id=agilesurfing.pl.dingingahcounter">Dinging Ah-Counter Android App for free</a> here.</p>
+
+<p><a href="https://play.google.com/store/apps/details?id=agilesurfing.pl.dingingahcounter"><img src="http://gregdmd.com/images/ahcounter.jpg"></a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[What Should I Focus On?]]></title>
