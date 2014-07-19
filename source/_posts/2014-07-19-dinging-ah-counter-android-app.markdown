@@ -25,14 +25,15 @@ This always leaves me wondering: "When exactly do I make those sounds?". Reports
 
 I've seen clubs solve this problem - Ah-Counter has a ring and uses it anytime he catches you. "Ding!" and immediately you are reminded to stop making "um". 
 
-My current assignment is to get a dinging device for my club - [Docklands Toastmasters](http://easy-speak.org/clubdata.php?c=4566). I've spent some time today going around shops looking for something like this:
+My current assignment is to get a dinging device for my club - 
+<a href="http://easy-speak.org/clubdata.php?c=4566"onclick="trackOutboundLink('http://easy-speak.org/clubdata.php?c=4566'); return false;"> Docklands Toastmasters</a>. I've spent some time today going around shops looking for something like this:
 
 ![bell](/images/tablebell.jpg)
 
 but I couldn't find any... So instead I've made an app ;)
 
-You can get [Dinging Ah-Counter Android App for free](https://play.google.com/store/apps/details?id=agilesurfing.pl.dingingahcounter) here.
+You can get <a href="https://play.google.com/store/apps/details?id=agilesurfing.pl.dingingahcounter"onclick="trackOutboundLink('https://play.google.com/store/apps/details?id=agilesurfing.pl.dingingahcounter'); return false;"> Dinging Ah-Counter Android App for free  </a> here.
 
-[<img src="/images/ahcounter.jpg">](https://play.google.com/store/apps/details?id=agilesurfing.pl.dingingahcounter)
-
-
+<a href="https://play.google.com/store/apps/details?id=agilesurfing.pl.dingingahcounter"onclick="trackOutboundLink('https://play.google.com/store/apps/details?id=agilesurfing.pl.dingingahcounter'); return false;">
+  <img itemprop="image" src="/images/ahcounter.jpg"/>
+</a>
