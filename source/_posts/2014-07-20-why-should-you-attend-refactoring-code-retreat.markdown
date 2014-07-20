@@ -6,7 +6,7 @@ comments: true
 categories: coderetreat
 ---
 
-First of all, I will be honest with you with you... Refactoring Code Retreat is just more fancy name for a good old [Legacy Code Retreat](http://www.jbrains.ca/legacy-code-retreat). 
+First of all, I will be honest with you with you... Refactoring Code Retreat is just more fancy name for a good old [Legacy Code Retreat](http://legacycoderetreat.typepad.com/blog/2011/11/how-i-run-legacy-code-retreat.html). 
 
 Why use different name? After the last internal Code Retreat we speculated that the "legacy" was a put off for some people, that would otherwise enjoy the event:
 
