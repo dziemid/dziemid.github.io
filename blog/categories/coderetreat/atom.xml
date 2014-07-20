@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Coderetreat | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/coderetreat/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-07-20T20:17:42+10:00</updated>
+  <updated>2014-07-20T20:21:04+10:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -27,6 +27,11 @@
 <p>So this time, we are changing the name, trying to make it more attractive ;)</p>
 
 <p>Anyway, why should you attend? In my opinion, Legacy(Refactoring) Code Retreat is worth your time because:</p>
+
+<!--more-->
+
+
+<p></p>
 
 <ul>
 <li><strong>Pair programming</strong> &ndash; You get to pair with other passionate devs. In fact at least 5 different ones during the day. How many new tricks can you learn?</li>
