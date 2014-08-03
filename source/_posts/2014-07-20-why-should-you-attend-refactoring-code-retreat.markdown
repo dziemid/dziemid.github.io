@@ -22,6 +22,7 @@ Anyway, why should you attend? In my opinion, Legacy(Refactoring) Code Retreat i
   
   * **Pair programming** - You get to pair with other passionate devs. In fact at least 5 different ones during the day. How many new tricks can you learn?
   * **Getting better with Legacy Code** - Have you ever had to change legacy code without any tests? During Code Retreat you will practice techniques to put such a legacy code under tests. It's a chance to practice some of the ideas from [Working Effectively with Legacy Code](http://www.amazon.com/gp/product/0131177052/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0131177052&linkCode=as2&tag=gregdziesblog-20&linkId=U6WOCUN4QHGJU2V7) book.
+  * **Fun** - We are going to work with [legacy code](https://github.com/jbrains/trivia) that is actually nice. It is specifically crafted to by well suited for a CodeRetreat and it provides good training ground for applying techniques we want to master.
 
 
 **You can <a href="http://www.eventbrite.com.au/e/refactoring-code-retreat-melbourne-tickets-12272143311"onclick="trackOutboundLink('http://www.eventbrite.com.au/e/refactoring-code-retreat-melbourne-tickets-12272143311'); return false;"> register for Refactoring Code Retreat in Melbourne</a> here.** 
