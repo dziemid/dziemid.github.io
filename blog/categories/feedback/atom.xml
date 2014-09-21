@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Feedback | Greg Dziemidowicz's Blog]]></title>
+  <link href="http://gregdmd.com/blog/categories/feedback/atom.xml" rel="self"/>
+  <link href="http://gregdmd.com/"/>
+  <updated>2014-09-21T18:10:52+10:00</updated>
+  <id>http://gregdmd.com/</id>
+  <author>
+    <name><![CDATA[Greg Dziemidowicz]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[1-1 Feedback Blog Post]]></title>
+    <link href="http://gregdmd.com/blog/2014/09/21/1-1-feedback-blog-post/"/>
+    <updated>2014-09-21T17:45:33+10:00</updated>
+    <id>http://gregdmd.com/blog/2014/09/21/1-1-feedback-blog-post</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been introduced to one to one team feedback by Pat Kua in 2011. To this date, it&rsquo;s one of my favourited practices in an agile project <em>( I recommend Pat&rsquo;s blog post series you can find <a href="https://www.thekua.com/atwork/2009/10/a-guide-to-receiving-feedback-part-i-ask-for-it/">here</a> )</em>.</p>
+
+<p>During last 12 months or so, I was luckly enough to work in a team that was interested and happy to practice it. Also, teams around me were curious about it and I&rsquo;ve run a few introductory sessions.</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>Together with Ilya, I&rsquo;ve written up a short blog post explaining a little bit why and how we have been practicing it. You can find the <a href="http://techblog.realestate.com.au/one-to-one-feedback-at-rea/">blog post here</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>
