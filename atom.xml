@@ -4,7 +4,7 @@
   <title><![CDATA[Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-11-29T22:56:35+11:00</updated>
+  <updated>2014-12-12T22:17:02+11:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -12,6 +12,79 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[hudson.plugins.git.GitException: Failed to Fetch From git@github.com]]></title>
+    <link href="http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com/"/>
+    <updated>2014-12-12T21:49:26+11:00</updated>
+    <id>http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com</id>
+    <content type="html"><![CDATA[<h2>Problem: Red build</h2>
+
+<p>Unless your Jenkins project just stopped building with this exception <code>hudson.plugins.git.GitException: Failed to fetch from git@github.com</code> you are unlikely to get much of this post ;)</p>
+
+<p>I guess there might be bunch of the reasons why you could see this message, but here is what happend to me..</p>
+
+<!--more-->
+
+
+<p></p>
+
+<p>My project hosted on github suddenly started to fail when building in jenkins. Initially I had no clue why and I&rsquo;ve done bunch of google searches:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> jenkins github returned status code 128:
+</span><span class='line'> jenkins ssh keys github stoped working
+</span><span class='line'> "hudson.plugins.git.GitException: Failed to fetch from git@github.com"</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Investigation</h2>
+
+<p>Thinking a little bit more about my situation. We have a Jenkins that is connecting to GitHub using different ssh keys depending on project (<a href="https://developer.github.com/guides/managing-deploy-keys/#deploy-keys">deploy key approach</a> ). So I continued to google:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'> jenkins multiple ssh keys not working
+</span><span class='line'> ssh debug which key git is using</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>That led me to additional debugging commands: <code>ssh -vvvT git@github.com</code> and adding in <code>~/.ssh/config</code></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>  Host github.com 
+</span><span class='line'>    LogLevel DEBUG3</span></code></pre></td></tr></table></div></figure>
+
+
+<p>While checking out projects from github and looking and debugging output problem became quite clear. Git, while using SSH, was authenticating using incorrect ssh key.</p>
+
+<h2>Solution</h2>
+
+<p>In the end, what happend was that previous day I&rsquo;ve replaced <code>~/.ssh/config</code> on Jenkins box. Among other things, there was a problematic bit of config:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
+</span><span class='line'>  ControlMaster auto
+</span><span class='line'>  ControlPath /tmp/ssh_mux_%h_%p_%r
+</span><span class='line'>  ControlPersist 10m   # - this was causing issues</span></code></pre></td></tr></table></div></figure>
+
+
+<blockquote><p>ControlPersist &ndash;  that automatically
+  starts a background ssh(1) multiplex master when connecting. This
+  connection can <strong>stay alive indefinitely</strong>, or can be set to
+  automatically close after a user-specified duration of inactivity</p></blockquote>
+
+<p>Above configuration was causing issues, when different projects were being build on Jenkins that were meant to use different ssh keys (while talking to github).</p>
+
+<p>Removing above config solved the problem.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[1-1 Feedback Blog Post]]></title>
