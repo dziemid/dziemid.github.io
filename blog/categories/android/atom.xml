@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Android | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2014-12-12T22:17:02+11:00</updated>
+  <updated>2015-01-04T12:51:29+11:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -12,6 +12,62 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Launching HeCoSiRe]]></title>
+    <link href="http://gregdmd.com/blog/2015/01/04/launching-hecosire/"/>
+    <updated>2015-01-04T12:10:53+11:00</updated>
+    <id>http://gregdmd.com/blog/2015/01/04/launching-hecosire</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve launched my new pet project HeCoSiRe and you can be part of it ;)</p>
+
+<p><img src="/images/hecosire.png" alt="HeCoSiRe" /></p>
+
+<p>So what is it about?</p>
+
+<p><strong>Functionally</strong>, the vision is to have a platform to track how you feel and generate insights into your health.</p>
+
+<p><em>Adults get an average of two to four colds per year(<a href="http://www.lung.org/lung-disease/influenza/in-depth-resources/facts-about-the-common-cold.html">source</a>)</em>
+I&rsquo;ve got mine over the x-mas break. Not fun, but a good motivation for a pet project.</p>
+
+<p>From <strong>technology</strong> point of view, it&rsquo;s just an excuse to learn more about tools involved (<em>Android, Rails and machine learning + more?</em>).</p>
+
+<p>So how can you get involved?</p>
+
+<!--more-->
+
+
+<h2>Interested in learning about your health?</h2>
+
+<p>You can help by just getting on board, using the tool and providing feedback.</p>
+
+<p>It&rsquo;s early days, but you can already easily capture how you feel. Over time I plan to add features around
+analysing the data. Maybe one day HeCoSiRe will be able to notice:
+<em>every time you start feeling sick and you eat a lemon you actually don&rsquo;t get sick</em>.</p>
+
+<p>There is <a href="http://hecosire.com/">a website hecosire.com</a> where you can create an account.</p>
+
+<p>You can also get an <a href="https://play.google.com/store/apps/details?id=hecosire.com.hecosireapp">Android HeCoSiReApp</a>.</p>
+
+<p>Last but not least, there is a <a href="https://twitter.com/hecosire">Twitter</a> and <a href="https://trello.com/b/iw8dxU8A/hecosire">Trello</a> if you want to interact about the product.</p>
+
+<h2>Interested about technology?</h2>
+
+<p>It&rsquo;s a pet project and as much as I am interested in the product I also want to learn how to use tools involved.</p>
+
+<p>For example I am new to Android and I&rsquo;m building an Android app. I am sure the way it&rsquo;s done at the moment it&rsquo;s not the best way to do it.
+Overtime I hope to learn and improve, but in the meantime feedback and pull requests are welcomed.</p>
+
+<p>Yes &ndash; HeCoSiRe is open source, you can find it on <a href="https://github.com/hecosire/">HeCoSiRe github</a>.</p>
+
+<p>This also means, that if there is a feature you would like to see in HeCoSiRe, you can add it ;)</p>
+
+<h2>Summary</h2>
+
+<p><em>HeCoSiRe &ndash; what a strange name?</em> Yes I know, I needed something quickly for my &ldquo;rails new&rdquo; ;) It&rsquo;s from &ldquo;<strong>He</strong>althy, <strong>Co</strong>ming down, <strong>Si</strong>ck and <strong>Re</strong>covering&rdquo; cycle that I decided to use in the app.</p>
+
+<p>If you are reading this, next step is to <a href="http://hecosire.com/users/sign_up">create a HeCoSiRe account</a> and start tracking :)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Dinging Ah-Counter Android App]]></title>
