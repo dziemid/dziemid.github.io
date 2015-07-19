@@ -70,3 +70,6 @@ You most likely need delivery engineering, and if you are big enough, you may de
 
 This is based on my experience, what do you think? :-)
 
+Are you a member of delivery engineering team? What do you think is important to share?
+
+Are you a "customer" of delivery engineering team, for example a member of product team? What are your toughts on having a delivery engineering team?
