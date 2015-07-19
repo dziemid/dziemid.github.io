@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>hudson.plugins.git.GitException: Failed to Fetch From git@github.com - Greg Dziemidowicz's Blog</title>
+  <title>Delivery Engineering Team - Greg Dziemidowicz's Blog</title>
   <meta name="author" content="Greg Dziemidowicz">
   <meta name="google-site-verification" content="0LvHoaPkvkyPND-GPaHyBUyliHFmN10F5_AG8smu0Rk" />
 
   
-  <meta name="description" content="Problem: Red build Unless your Jenkins project just stopped building with this exception hudson.plugins.git.GitException: Failed to fetch from git@ &hellip;">
+  <meta name="description" content="What is it? One definition could be: Delivery engineering team enables others to deliver business value faster. Others in this context relates to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com">
+  <link rel="canonical" href="http://gregdmd.com/blog/2015/07/19/delivery-engineering-team">
   <link rel="author" href="https://plus.google.com/109752048953709112045"/>
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -88,7 +88,7 @@
   
   <header>
     
-      <h1 itemprop="name" class="entry-title">hudson.plugins.git.GitException: Failed to Fetch From git@github.com</h1>
+      <h1 itemprop="name" class="entry-title">Delivery Engineering Team</h1>
     
     
       <p class="meta">
@@ -104,78 +104,90 @@
   
 
 
-<time itemprop="datePublished" content="2014-12-12T21:49:26+11:00" datetime="2014-12-12T21:49:26+11:00" pubdate data-updated="true">Dec 12<span>th</span>, 2014</time>
+<time itemprop="datePublished" content="2015-07-19T10:45:59+10:00" datetime="2015-07-19T10:45:59+10:00" pubdate data-updated="true">Jul 19<span>th</span>, 2015</time>
         
       </p>
     
   </header>
 
 
-<div class="entry-content"><h2>Problem: Red build</h2>
+<div class="entry-content"><h2>What is it?</h2>
 
-<p>Unless your Jenkins project just stopped building with this exception <code>hudson.plugins.git.GitException: Failed to fetch from git@github.com</code> you are unlikely to get much of this post ;)</p>
+<p>One definition could be:</p>
 
-<p>I guess there might be bunch of the reasons why you could see this message, but here is what happend to me..</p>
+<blockquote><p>Delivery engineering team enables others to deliver business value faster.</p></blockquote>
 
-<!--more-->
+<p>Others in this context relates to product/project software delivery teams.</p>
 
+<p><img itemprop="image" src="/images/deleng.jpg"/></p>
 
-<p></p>
+<p>It seems to be fairly new term, judging by lack of definition in google or recent tweet from #devopsdays in Melbourne:</p>
 
-<p>My project hosted on github suddenly started to fail when building in jenkins. Initially I had no clue why and I&rsquo;ve done bunch of google searches:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> jenkins github returned status code 128:
-</span><span class='line'> jenkins ssh keys github stoped working
-</span><span class='line'> "hudson.plugins.git.GitException: Failed to fetch from git@github.com"</span></code></pre></td></tr></table></div></figure>
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">Finally an appropriate name for what i actually do - Delivery Engingeering. Thanks <a href="https://twitter.com/hashtag/devopsdays?src=hash">#devopsdays</a></p>&mdash; griggle (@griggle) <a href="https://twitter.com/griggle/status/621483550974439425">July 16, 2015</a></blockquote>
 
 
-<h2>Investigation</h2>
-
-<p>Thinking a little bit more about my situation. We have a Jenkins that is connecting to GitHub using different ssh keys depending on project (<a href="https://developer.github.com/guides/managing-deploy-keys/#deploy-keys">deploy key approach</a> ). So I continued to google:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> jenkins multiple ssh keys not working
-</span><span class='line'> ssh debug which key git is using</span></code></pre></td></tr></table></div></figure>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<p></p>
+<p>Other, maybe more common name seems to be <a href="https://www.rallydev.com/blog/engineering/you-don-t-need-devops-team-you-need-tools-team">&ldquo;tooling team&rdquo;</a>.</p>
 
-<p>That led me to additional debugging commands: <code>ssh -vvvT git@github.com</code> and adding in <code>~/.ssh/config</code></p>
+<p>It&rsquo;s definitely not a <a href="http://www.thoughtworks.com/radar/techniques/separate-devops-team">&ldquo;devops team&rdquo;</a>.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  Host github.com 
-</span><span class='line'>    LogLevel DEBUG3</span></code></pre></td></tr></table></div></figure>
+<h2>What&rsquo;s in?</h2>
 
+<p>In the delivery engineering team I am part of, some of the metrics we are trying to improve:</p>
 
-<p>While checking out projects from github and looking and debugging output problem became quite clear. Git, while using SSH, was authenticating using incorrect ssh key.</p>
-
-<h2>Solution</h2>
-
-<p>In the end, what happend was that previous day I&rsquo;ve replaced <code>~/.ssh/config</code> on Jenkins box. Among other things, there was a problematic bit of config:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
-</span><span class='line'>  ControlMaster auto
-</span><span class='line'>  ControlPath /tmp/ssh_mux_%h_%p_%r
-</span><span class='line'>  ControlPersist 10m   # - this was causing issues</span></code></pre></td></tr></table></div></figure>
+<ul>
+<li>CI Build time</li>
+<li>Deploy time</li>
+<li>New server creation time</li>
+<li>New production like environment creation time</li>
+<li>New developer laptop setup time</li>
+</ul>
 
 
-<blockquote><p>ControlPersist &ndash;  that automatically
-  starts a background ssh(1) multiplex master when connecting. This
-  connection can <strong>stay alive indefinitely</strong>, or can be set to
-  automatically close after a user-specified duration of inactivity</p></blockquote>
+<p>I guess there are many ways to go about moving above, but in the teams I&rsquo;ve worked with, the day to day often was:</p>
 
-<p>Above configuration was causing issues, when different projects were being build on Jenkins that were meant to use different ssh keys (while talking to github).</p>
+<ul>
+<li>Moving software from legacy platform to a new one. (Think AWS/docker migration)</li>
+<li>Creating tools and practices to support above.</li>
+<li>Technology evangelism, training &amp; support for product teams.</li>
+</ul>
 
-<p>Removing above config solved the problem.</p>
+
+<h2>What&rsquo;s out?</h2>
+
+<p>The product teams should have full freedom and responsibility to run thier apps in production.</p>
+
+<p>So it&rsquo;s not responsibility of delivery engineering team to</p>
+
+<ul>
+<li>Upgrade frameworks and libraries used by product team. The product team itself should do it.</li>
+<li>Carry a pager, be on-call as support for production systems (unless those are the systems that delivery engineering team is a custodian of, for example CI server)</li>
+<li>Be a gate keeper on a path to production. The product teams themselves can decide what and when to release.</li>
+</ul>
+
+
+<h2>Techniques &amp; Practices</h2>
+
+<p>Some of the techniques and practices important for delivery engineering team</p>
+
+<ul>
+<li>Team rotation</li>
+<li><a href="http://martinfowler.com/bliki/ContinuousDelivery.html">Continuous Delivery</a></li>
+<li>Showcase</li>
+</ul>
+
+
+<h2>Do you need delivery engineering team?</h2>
+
+<p>Maybe :&ndash;)</p>
+
+<p>You most likely need delivery engineering, and if you are big enough, you may decide to form a team around it. The size I have an experience with and seems to work OK, is one small delivery engineering team for roughly three product teams. To use <a href="http://blog.crisp.se/2012/11/14/henrikkniberg/scaling-agile-at-spotify">spotify terminology</a>, delivery engineering team is part of tribe and supports squads.</p>
+
+<h2>To sum up</h2>
+
+<p>This is based on my experience, what do you think? :&ndash;)</p>
 </div>
 
 
@@ -198,12 +210,12 @@
   
 
 
-<time itemprop="datePublished" content="2014-12-12T21:49:26+11:00" datetime="2014-12-12T21:49:26+11:00" pubdate data-updated="true">Dec 12<span>th</span>, 2014</time>
+<time itemprop="datePublished" content="2015-07-19T10:45:59+10:00" datetime="2015-07-19T10:45:59+10:00" pubdate data-updated="true">Jul 19<span>th</span>, 2015</time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/jenkins/'>jenkins</a>
+    <a class='category' href='/blog/categories/agile/'>agile</a>, <a class='category' href='/blog/categories/devops/'>devops</a>
   
 </span>
 
@@ -212,7 +224,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com/" data-via="dziemid" data-counturl="http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://gregdmd.com/blog/2015/07/19/delivery-engineering-team/" data-via="dziemid" data-counturl="http://gregdmd.com/blog/2015/07/19/delivery-engineering-team/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -225,10 +237,8 @@
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2014/09/21/1-1-feedback-blog-post/" title="Previous Post: 1-1 feedback blog post">&laquo; 1-1 feedback blog post</a>
+        <a class="basic-alignment left" href="/blog/2015/01/04/launching-hecosire/" title="Previous Post: Launching HeCoSiRe">&laquo; Launching HeCoSiRe</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2015/01/04/launching-hecosire/" title="Next Post: Launching HeCoSiRe">Launching HeCoSiRe &raquo;</a>
       
     </p>
   </footer>
@@ -346,8 +356,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com/';
-        var disqus_url = 'http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com/';
+        var disqus_identifier = 'http://gregdmd.com/blog/2015/07/19/delivery-engineering-team/';
+        var disqus_url = 'http://gregdmd.com/blog/2015/07/19/delivery-engineering-team/';
         var disqus_script = 'embed.js';
       
     (function () {

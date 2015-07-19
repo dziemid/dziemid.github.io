@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>hudson.plugins.git.GitException: Failed to Fetch From git@github.com - Greg Dziemidowicz's Blog</title>
+  <title>Category: Devops - Greg Dziemidowicz's Blog</title>
   <meta name="author" content="Greg Dziemidowicz">
   <meta name="google-site-verification" content="0LvHoaPkvkyPND-GPaHyBUyliHFmN10F5_AG8smu0Rk" />
 
   
-  <meta name="description" content="Problem: Red build Unless your Jenkins project just stopped building with this exception hudson.plugins.git.GitException: Failed to fetch from git@ &hellip;">
+  <meta name="description" content="Category: devops">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com">
+  <link rel="canonical" href="http://gregdmd.comblog/categories/devops">
   <link rel="author" href="https://plus.google.com/109752048953709112045"/>
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -84,161 +84,36 @@
   <div id="main">
     <div id="content">
       <div>
-<article itemscope itemtype="http://schema.org/Article" class="hentry" role="article">
+<article itemscope itemtype="http://schema.org/Article" role="article">
   
   <header>
-    
-      <h1 itemprop="name" class="entry-title">hudson.plugins.git.GitException: Failed to Fetch From git@github.com</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time itemprop="datePublished" content="2014-12-12T21:49:26+11:00" datetime="2014-12-12T21:49:26+11:00" pubdate data-updated="true">Dec 12<span>th</span>, 2014</time>
-        
-      </p>
+    <h1 class="entry-title">Category: Devops</h1>
     
   </header>
-
-
-<div class="entry-content"><h2>Problem: Red build</h2>
-
-<p>Unless your Jenkins project just stopped building with this exception <code>hudson.plugins.git.GitException: Failed to fetch from git@github.com</code> you are unlikely to get much of this post ;)</p>
-
-<p>I guess there might be bunch of the reasons why you could see this message, but here is what happend to me..</p>
-
-<!--more-->
-
-
-<p></p>
-
-<p>My project hosted on github suddenly started to fail when building in jenkins. Initially I had no clue why and I&rsquo;ve done bunch of google searches:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> jenkins github returned status code 128:
-</span><span class='line'> jenkins ssh keys github stoped working
-</span><span class='line'> "hudson.plugins.git.GitException: Failed to fetch from git@github.com"</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>Investigation</h2>
-
-<p>Thinking a little bit more about my situation. We have a Jenkins that is connecting to GitHub using different ssh keys depending on project (<a href="https://developer.github.com/guides/managing-deploy-keys/#deploy-keys">deploy key approach</a> ). So I continued to google:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> jenkins multiple ssh keys not working
-</span><span class='line'> ssh debug which key git is using</span></code></pre></td></tr></table></div></figure>
-
-
-<p></p>
-
-<p>That led me to additional debugging commands: <code>ssh -vvvT git@github.com</code> and adding in <code>~/.ssh/config</code></p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>  Host github.com 
-</span><span class='line'>    LogLevel DEBUG3</span></code></pre></td></tr></table></div></figure>
-
-
-<p>While checking out projects from github and looking and debugging output problem became quite clear. Git, while using SSH, was authenticating using incorrect ssh key.</p>
-
-<h2>Solution</h2>
-
-<p>In the end, what happend was that previous day I&rsquo;ve replaced <code>~/.ssh/config</code> on Jenkins box. Among other things, there was a problematic bit of config:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>Host *
-</span><span class='line'>  ControlMaster auto
-</span><span class='line'>  ControlPath /tmp/ssh_mux_%h_%p_%r
-</span><span class='line'>  ControlPersist 10m   # - this was causing issues</span></code></pre></td></tr></table></div></figure>
-
-
-<blockquote><p>ControlPersist &ndash;  that automatically
-  starts a background ssh(1) multiplex master when connecting. This
-  connection can <strong>stay alive indefinitely</strong>, or can be set to
-  automatically close after a user-specified duration of inactivity</p></blockquote>
-
-<p>Above configuration was causing issues, when different projects were being build on Jenkins that were meant to use different ssh keys (while talking to github).</p>
-
-<p>Removing above config solved the problem.</p>
-</div>
-
-
-  <footer>
-    <p class="meta">
-      
   
-
-<span class="byline author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person">Posted by <span  itemprop="name" class="fn">Greg Dziemidowicz</span></span>
-
-      
-
-
-
-
-
+  <div id="blog-archives" class="category">
 
 
 
   
+  <h2>2015</h2>
+
+<article>
+  
+<h1><a href="/blog/2015/07/19/delivery-engineering-team/">Delivery Engineering Team</a></h1>
+<time datetime="2015-07-19T10:45:59+10:00" pubdate><span class='month'>Jul</span> <span class='day'>19</span> <span class='year'>2015</span></time>
+
+<footer>
+  <span class="categories">posted in <a class='category' href='/blog/categories/agile/'>agile</a>, <a class='category' href='/blog/categories/devops/'>devops</a></span>
+</footer>
 
 
-<time itemprop="datePublished" content="2014-12-12T21:49:26+11:00" datetime="2014-12-12T21:49:26+11:00" pubdate data-updated="true">Dec 12<span>th</span>, 2014</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/jenkins/'>jenkins</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com/" data-via="dziemid" data-counturl="http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com/" >Tweet</a>
-  
-  
-  <div class="g-plusone" data-size="medium"></div>
-  
-  
-    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
-  
-</div>
-
-    
-    <p class="meta">
-      
-        <a class="basic-alignment left" href="/blog/2014/09/21/1-1-feedback-blog-post/" title="Previous Post: 1-1 feedback blog post">&laquo; 1-1 feedback blog post</a>
-      
-      
-        <a class="basic-alignment right" href="/blog/2015/01/04/launching-hecosire/" title="Next Post: Launching HeCoSiRe">Launching HeCoSiRe &raquo;</a>
-      
-    </p>
-  </footer>
 </article>
 
-  <section>
-    <h1>Comments</h1>
-    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-  </section>
+
+  
+</article>
 
 </div>
 
@@ -345,10 +220,7 @@
       var disqus_shortname = 'gregdmd';
       
         
-        // var disqus_developer = 1;
-        var disqus_identifier = 'http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com/';
-        var disqus_url = 'http://gregdmd.com/blog/2014/12/12/hudson-dot-plugins-dot-git-dot-gitexception-failed-to-fetch-from-git-at-github-dot-com/';
-        var disqus_script = 'embed.js';
+        var disqus_script = 'count.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;

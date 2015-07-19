@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Agile | Greg Dziemidowicz's Blog]]></title>
-  <link href="http://gregdmd.com/blog/categories/agile/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Devops | Greg Dziemidowicz's Blog]]></title>
+  <link href="http://gregdmd.com/blog/categories/devops/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
   <updated>2015-07-19T11:45:36+10:00</updated>
   <id>http://gregdmd.com/</id>
@@ -95,58 +95,6 @@
 <h2>To sum up</h2>
 
 <p>This is based on my experience, what do you think? :&ndash;)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[1-1 Feedback Blog Post]]></title>
-    <link href="http://gregdmd.com/blog/2014/09/21/1-1-feedback-blog-post/"/>
-    <updated>2014-09-21T17:45:33+10:00</updated>
-    <id>http://gregdmd.com/blog/2014/09/21/1-1-feedback-blog-post</id>
-    <content type="html"><![CDATA[<p>I&rsquo;ve been introduced to one to one team feedback by Pat Kua in 2011. To this date, it&rsquo;s one of my favourited practices in an agile project <em>( I recommend Pat&rsquo;s blog post series you can find <a href="https://www.thekua.com/atwork/2009/10/a-guide-to-receiving-feedback-part-i-ask-for-it/">here</a> )</em>.</p>
-
-<p>During last 12 months or so, I was luckly enough to work in a team that was interested and happy to practice it. Also, teams around me were curious about it and I&rsquo;ve run a few introductory sessions.</p>
-
-<!--more-->
-
-
-<p></p>
-
-<p>Together with Ilya, I&rsquo;ve written up a short blog post explaining a little bit why and how we have been practicing it. You can find the <a href="http://techblog.realestate.com.au/one-to-one-feedback-at-rea/">blog post here</a>.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Make It Happen]]></title>
-    <link href="http://gregdmd.com/blog/2014/03/25/make-it-happen/"/>
-    <updated>2014-03-25T22:11:49+11:00</updated>
-    <id>http://gregdmd.com/blog/2014/03/25/make-it-happen</id>
-    <content type="html"><![CDATA[<p>(<em>This is a transcript of a speech I&rsquo;ve delivered recently in my Toastmasters club.</em>)</p>
-
-<p>Two years ago a bus full of employes of 1 company department was heading for a team event. I was sitting on this bus and chatting with a person next to me.</p>
-
-<p><blockquote><p></p></p><p><p>“Hey, did you notice that in our department we are quite good at knowledge sharing?”<br/>“You know, we show each other what are we working on, we practice together”<br/>“How about other departments? We don’t share so much with them?”<br/>“Yeah, let&rsquo;s do something about it!”</p></p><p><p></p></blockquote></p>
-
-<p>and we did.</p>
-
-<!--more-->
-
-
-<p></p>
-
-<p>If you are working with other people, and sometimes you want to change things then please listen. I would like to share with you 3 simple techniques you can do, to introduce new ideas successfully.</p>
-
-<p>Surround your pullquote like this {" text to be quoted "}</p>
-
-<p>Surround your pullquote like this {" text to be quoted "}</p>
-
-<p>Surround your pullquote like this {" text to be quoted "}</p>
-
-<p>We used more techniques than <em>“Brown bag”</em>, <em>“Ask for help”</em> or <em>“Corporate angel”</em>. You can read about those and more in a book by Linda Rising and Mary Lynn Manns called “Fearless change, patterns for introducing new ideas”, I highly recommend this book.</p>
-
-<p>In the end, we managed to organise our conference. It was a great success, with 2 tracks, around 10 speakers and almost 100 people attending. This all started by 2 people having a crazy idea in the bus.</p>
-
-<p>In a big company, two normal workers, like you and me. So if we could do it, you can do it. Go, read the <a href="http://www.amazon.com/gp/product/0201741571/ref=as_li_qf_sp_asin_il_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0201741571&amp;linkCode=as2&amp;tag=gregdziesblog-20">“Fearless change" book</a> and made your ideas happen.</p>
 ]]></content>
   </entry>
   
