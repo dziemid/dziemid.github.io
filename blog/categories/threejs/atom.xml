@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Cardboard | Greg Dziemidowicz's Blog]]></title>
-  <link href="http://gregdmd.com/blog/categories/cardboard/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Threejs | Greg Dziemidowicz's Blog]]></title>
+  <link href="http://gregdmd.com/blog/categories/threejs/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
   <updated>2015-11-24T08:21:01+11:00</updated>
   <id>http://gregdmd.com/</id>
@@ -48,43 +48,6 @@
 <p><a href="https://art-socks.herokuapp.com/demo.html">Please have a look at a demo &ndash; it works the best in VR :&ndash;)</a> (open in browser on the phone and click VR icon)</p>
 
 <p>PS. One of the great things abotu CampJS was ability to show what you are building and get ideas and feedback from people around you. Ben from SceneVR showed me how easy it is to build something similar in SceneVR. It&rsquo;s really cool project, <a href="http://www.scenevr.com">check it out</a> :&ndash;)</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Game of Life With Google Cardboard]]></title>
-    <link href="http://gregdmd.com/blog/2015/11/15/game-of-life-with-google-cardboard/"/>
-    <updated>2015-11-15T08:58:21+11:00</updated>
-    <id>http://gregdmd.com/blog/2015/11/15/game-of-life-with-google-cardboard</id>
-    <content type="html"><![CDATA[<p><a href="https://play.google.com/store/apps/details?id=pl.agilesurfing.gol"onclick="trackOutboundLink('https://play.google.com/store/apps/details?id=pl.agilesurfing.gol'); return false;">Get Game of Life for Cardboard here.</a></p>
-
-<h2>What is it?</h2>
-
-<p>It&rsquo;s pretty much in the name :&ndash;) Have a look at screenshot to get an idea of what it is.</p>
-
-<p><a href="https://play.google.com/store/apps/details?id=pl.agilesurfing.gol"onclick="trackOutboundLink('https://play.google.com/store/apps/details?id=pl.agilesurfing.gol'); return false;"><img itemprop="image" src="http://gregdmd.com/images/gol.jpg"/></a></p>
-
-<p>What is special about this &ldquo;Game of life&rdquo; is, that you get to experience it in Virtual Reality, giving you a new, unique perspective.</p>
-
-<p>You can learn <a href="https://www.google.com/get/cardboard/">more about Cardboard here</a> and read about <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Game of life on wikipedia</a>.</p>
-
-<h2>How is it made?</h2>
-
-<p>The app is made using <a href="https://unity3d.com/">Unity 5</a>. I&rsquo;ve started learning Unity recently and I am impressed how easy it&rsquo;s to get started. They have good tutorials that get you going and assets store full of things you can use in your apps.</p>
-
-<p>It&rsquo;s really simple implementation written in C#, using <a href="https://developers.google.com/cardboard/unity/">SDK</a>.</p>
-
-<h2>What&rsquo;s next?</h2>
-
-<p>I&rsquo;ve seen a great qoute on VR sometime ago:</p>
-
-<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">Virtual Reality is BY FAR the biggest delta I&#39;ve ever seen between what it looks like from the outside vs what it feels like on the inside.</p>&mdash; Marc Andreessen (@pmarca) <a href="https://twitter.com/pmarca/status/658479467296264192">October 26, 2015</a></blockquote>
-
-
-<script async src="http://gregdmd.com//platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<p>I agree, and what it means is that you really need to get your hands on a Cardboard and try out the <a href="https://play.google.com/store/apps/details?id=pl.agilesurfing.gol"onclick="trackOutboundLink('https://play.google.com/store/apps/details?id=pl.agilesurfing.gol'); return false;">Game of Life for yourself.</a> :&ndash;)</p>
 ]]></content>
   </entry>
   

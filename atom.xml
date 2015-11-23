@@ -4,7 +4,7 @@
   <title><![CDATA[Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2015-11-15T09:23:40+11:00</updated>
+  <updated>2015-11-24T08:21:01+11:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -12,6 +12,44 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CampJS Project - ArtSocks VR]]></title>
+    <link href="http://gregdmd.com/blog/2015/11/24/campjs-project-artsocks-vr/"/>
+    <updated>2015-11-24T07:56:51+11:00</updated>
+    <id>http://gregdmd.com/blog/2015/11/24/campjs-project-artsocks-vr</id>
+    <content type="html"><![CDATA[<p>Last weekend I&rsquo;ve been to <a href="http://vi.campjs.com/">CampJS</a>.</p>
+
+<p>It was 4 days event held on a camp site in Queensland, Australia. Imagine mixture of conference, hackathon and social event. It works great and I highly recommend this format :&ndash;) ( Checkout the <a href="https://twitter.com/search?f=images&amp;vertical=default&amp;q=%23campjs&amp;src=typd">photos on twitter</a> )</p>
+
+<p>Thank you everyone who made CampJS a blast :&ndash;)</p>
+
+<h2>ArtSocks VR</h2>
+
+<p>During the weekend I&rsquo;ve decided to experiemnt with virtual reality in the browser.</p>
+
+<p><a href="https://art-socks.herokuapp.com/demo.html"><img itemprop="image" src="http://gregdmd.com/images/art-socks.jpg"/></a></p>
+
+<p>I&rsquo;ve used <a href="https://github.com/borismus/webvr-boilerplate">webvr-boilerplate</a> to build simple virtual art gallery prototype.</p>
+
+<p>To make it more fun, I&rsquo;ve used websockets so you can be in the gallery with someone else.</p>
+
+<p>Below list of images I&rsquo;ve used in the demo:</p>
+
+<ol>
+<li> <a href="http://www.redbubble.com/people/cardboardcities/works/12292601-hydrangea-polka?ref=home_found">hydrangea polka</a></li>
+<li> <a href="http://www.redbubble.com/people/jenni40947/works/17071969-autumn-leaves-teal?ref=home_found">Autumn Leaves (Teal)</a></li>
+<li> <a href="http://www.redbubble.com/people/oparina/works/17493280-parallel-universe?ref=home_found">Parallel Universe</a></li>
+<li> <a href="http://www.redbubble.com/people/mloyan/works/15375385-june-and-her-crocodile?ref=home_found">june &amp; her crocodile</a></li>
+<li> <a href="http://www.redbubble.com/people/tofuvi/works/17587398-infuse?ref=home_found">infuse.</a></li>
+</ol>
+
+
+<p><a href="https://art-socks.herokuapp.com/demo.html">Please have a look at a demo &ndash; it works the best in VR :&ndash;)</a> (open in browser on the phone and click VR icon)</p>
+
+<p>PS. One of the great things abotu CampJS was ability to show what you are building and get ideas and feedback from people around you. Ben from SceneVR showed me how easy it is to build something similar in SceneVR. It&rsquo;s really cool project, <a href="http://www.scenevr.com">check it out</a> :&ndash;)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Game of Life With Google Cardboard]]></title>
