@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Cardboard | Greg Dziemidowicz's Blog]]></title>
   <link href="http://gregdmd.com/blog/categories/cardboard/atom.xml" rel="self"/>
   <link href="http://gregdmd.com/"/>
-  <updated>2015-11-24T08:21:01+11:00</updated>
+  <updated>2016-01-17T20:43:32+11:00</updated>
   <id>http://gregdmd.com/</id>
   <author>
     <name><![CDATA[Greg Dziemidowicz]]></name>
@@ -12,6 +12,28 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Shipping MarineVerse]]></title>
+    <link href="http://gregdmd.com/blog/2016/01/17/shipping-marineverse/"/>
+    <updated>2016-01-17T20:21:05+11:00</updated>
+    <id>http://gregdmd.com/blog/2016/01/17/shipping-marineverse</id>
+    <content type="html"><![CDATA[<p>With the start of 2016 I&rsquo;ve started working on a new project. <a href="http://www.marineverse.com">MarineVerse &ndash; all about sailing in virtual reality</a>. I am having quite a bit of fun working on it, combining my passion for sailing and technology.</p>
+
+<p>I am working on MarineVerse together with Olga, with a great result. For example, check out the awesome logo :&ndash;)
+<a href="http://www.marineverse.com"><img itemprop="image" src="http://blog.marineverse.com/assets/banner.png"/></a></p>
+
+<p>Currently I am using Unity to build simple cardboard apps and also experimenting with GearVR. Below you can see me showing an early version of &ldquo;<a href="https://play.google.com/store/apps/details?id=com.marineverse.pointofsail">Point of Sail</a>&rdquo; app.</p>
+
+<p><img itemprop="image" src="http://gregdmd.com/images/demo_of_point_of_sail.png"/></p>
+
+<p>Also, finally I&rsquo;ve signed up to a sailing club in Melbourne and with a start of Feburary I will be joining a sailing course. Looking forward to it :&ndash;)</p>
+
+<p>Coming back to MarineVerse, I am working on it with full steam ahead. There is a <a href="http://www.marineverse.com">landing page</a> and <a href="http://blog.marineverse.com">blog</a>.</p>
+
+<p>Please <a href="https://twitter.com/MarineVerseVR">follow MarineVerse</a> on twitter and <a href="https://www.facebook.com/MarineVerse/">like it on Facebook</a>. Cheers :&ndash;)</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CampJS Project - ArtSocks VR]]></title>
